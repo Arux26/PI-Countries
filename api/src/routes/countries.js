@@ -61,4 +61,19 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const country = await Country.findOne({
+      where: {
+        id: { [Op.iLike]: `%${id}%` }
+      },
+    });
+    if (!country) return res.status(404).send(`El id ${id} no corresponde a un pais existente`);
+    res.json(country);
+  } catch (e) {
+    console.log(e)
+  }
+});
+
 module.exports = router 
