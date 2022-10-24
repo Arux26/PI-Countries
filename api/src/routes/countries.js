@@ -46,6 +46,9 @@ router.get("/", async (req, res) => {
         where: {
           nombre: { [Op.iLike]: `%${name}%` }
         },
+        include: {
+          model: Activity
+        }
       });
       countries.length ? res.status(200).json(countries) : res.status(404).send("Paises no encontrados");
     } else {
@@ -58,6 +61,7 @@ router.get("/", async (req, res) => {
     }
   } catch (e) {
     console.log(e)
+    res.status(404).send("Error: ", e)
   }
 });
 
@@ -68,11 +72,13 @@ router.get("/:id", async (req, res) => {
       where: {
         id: { [Op.iLike]: `%${id}%` }
       },
+      include: { model: Activity },
     });
     if (!country) return res.status(404).send(`El id ${id} no corresponde a un pais existente`);
     res.json(country);
   } catch (e) {
     console.log(e)
+    res.status(404).send("Algo salio mal en el proceso")
   }
 });
 
