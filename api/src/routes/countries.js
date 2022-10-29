@@ -12,9 +12,9 @@ getAllCountries = async () => {
       id: p.cca3,
       nombre: p.name.common,
       imagen: p.flags ? p.flags[0] : p.flags === "img not found",
-      continente: p.region,
+      continente: p.continents[0],
       capital: p.capital ? p.capital[0] : p.capital === "N/A",
-      subregion: p.subregion,
+      subregion: p.subregion ? p.subregion : "subregion not found",
       area: p.area,
       poblacion: p.population
     };
