@@ -1,0 +1,3 @@
+export const GET_COUNTRIES = "GET_COUNTRIES";
+export const ORDER_BY_NAME = "ORDER_BY_NAME";
+export const GET_COUNTRIE_BY_NAME = "GET_COUNTRIE_BY_NAME";

@@ -2,17 +2,30 @@ import './App.css';
 import Home from './components/Home';
 import LandingPage from './components/landingPage';
 import { Route } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import About from './components/About';
+import CreateActivity from './components/CreateActivity';
 
 function App() {
   return (
     <div>
-      <Route exact path={"/"}>
+      <Route path={["/home", "/about"]}>
+        <NavBar />
+      </Route>
+      <Route exact path="/">
         <LandingPage />
       </Route>
-      <Route path={"/home"}>
+      <Route path="/home">
         <Home />
       </Route>
+      <Route path="/about">
+        <About />
+      </Route>
+      <Route path="/create">
+        <CreateActivity />
+      </Route>
     </div>
+
   );
 }
 
