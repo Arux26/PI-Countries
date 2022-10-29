@@ -31,7 +31,7 @@ dbCountries = async () => {
     try {
       await Country.bulkCreate(countries);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   };
   return countriesOnDb
