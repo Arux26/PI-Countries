@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+p.danger {
+  color: red;
+  font-size: 15px;
+}
+
+input.danger {
+  border: 2px solid red;
+}
+
+input.focus {
+  background-color: blue;
+}

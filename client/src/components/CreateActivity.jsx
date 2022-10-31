@@ -1,8 +1,34 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCountries, postActivity } from '../actions';
+// import Lupa2 from '../images/Lupa2.jpg'
+
+
+export function validate(input) {
+  let errors = {};
+  if (!input.actividad) {
+    errors.actividad = 'Escribe una actividad';
+  } else if (/[^a-zA-Z]/.test(input.actividad)) {
+    errors.actividad = 'La actividad no puede contener simbolos o numeros';
+  }
+  if (!input.dificultad) errors.dificultad = 'Ingresar una dificultad';
+  if (!input.duracion) errors.duracion = 'Se requiere una duración';
+  if (!input.temporada) errors.temporada = 'Seleccione una temporada';
+  if (!input.countries.length) errors.countries = 'Seleccionar al menos un país';
+  return errors;
+};
 
 function CreateActivity() {
+
+  const countries = useSelector((state) => state.countries);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    dispatch(getCountries())
+  }, [dispatch]);
 
   /* const initialState = {
     actividad: "",
@@ -10,65 +36,94 @@ function CreateActivity() {
     duracion: "",
     temporada: "",
   } */
-
+  /* onBlur={() => { setTimeout(() => { setLimpiar([]); }, 200); }} */
   const [input, setInput] = useState({
     actividad: "",
     dificultad: "",
     duracion: "",
     temporada: "",
+    countries: []
   });
+
+  const [errors, setErrors] = useState({});
+  //const [limpiar, setLimpiar] = useState([])
+
+  const handleOnChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+    setErrors(validate({ ...input, [e.target.name]: e.target.value }))
+  };
+
+  const handleOnBlur = (e) => {
+    setErrors(validate({ ...input, [e.target.name]: e.target.value }))
+  };
+
+  /*  const handleOnFocus = (e) => {
+     [e.target.name] = className = "focus";
+   }; */
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors(validate({ ...input, [e.target.name]: e.target.value }))
+    dispatch(postActivity(input));
+    alert("Personaje creado correctamente")
+    setInput({ actividad: "", dificultad: "", duracion: "", temporada: "", countries: [] });
+    history.push("/home")
+  };
+
 
   return (
     <div>
-      <form>
+      <form onSubmit={e => handleSubmit(e)}>
         <div><Link to="/home">Volver</Link></div>
         <h2>Crear Actividad</h2>
         <div>
-          <label>Pais:
-            <select>
-              <option value={"selec"}>Seleccionar</option>
-              <option value={"arg"}>Argentina</option>
-            </select>
-          </label>
+          <span>Pais:</span>
+          <input type="text" name="pais" value={input.countries} placeholder="Buscar pais..." onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)} />
         </div>
 
-        <label>Actividad:
-          <input type="text" name="actividad" placeholder="Ingresar Actividad" />
-        </label>
+        <div>
+          <span>Actividad:</span>
+          <input type="text" name="actividad" value={input.actividad} placeholder="Ingresar Actividad" onChange={e => handleOnChange(e)} className={errors.actividad && "danger"} onBlur={e => handleOnBlur(e)} />
+          {errors.actividad && <p className='danger' style={{ visibility: errors.actividad ? "visible" : "hidden" }}>{errors.actividad}</p>}
+        </div>
+
 
         <div>
-          <label>Dificultad:
-            <select>
-              <option name="dificultad" value={input.dificultad}>Seleccionar</option>
-              <option name="dificultad" value={input.dificultad}>1- Muy Fácil</option>
-              <option name="dificultad" value={input.dificultad}>2- Fácil</option>
-              <option name="dificultad" value={input.dificultad}>3- Medio</option>
-              <option name="dificultad" value={input.dificultad}>4- Difícil</option>
-              <option name="dificultad" value={input.dificultad}>5- Experto</option>
-            </select>
-          </label>
+          <span>Dificultad:</span>
+          <select name="dificultad" id='dificultad' onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)}>
+            <option>Seleccionar</option>
+            <option name="dificultad" value={"Muy Fácil"}>Muy Fácil</option>
+            <option name="dificultad" value={"Fácil"}>Fácil</option>
+            <option name="dificultad" value={"Medio"}>Medio</option>
+            <option name="dificultad" value={"Difícil"}>Difícil</option>
+            <option name="dificultad" value={"Experto"}>Experto</option>
+          </select>
+          {errors.dificultad && <p className='danger' style={{ visibility: errors.dificultad ? "visible" : "hidden" }}>{errors.dificultad}</p>}
         </div>
+
         <div>
-          <label>Duración:
-            <select>
-              <option name="duracion" value={input.duracion}>Seleccionar</option>
-              <option name="duracion" value={input.duracion}>1hs</option>
-              <option name="duracion" value={input.duracion}>2hs</option>
-              <option name="duracion" value={input.duracion}>3hs</option>
-              <option name="duracion" value={input.duracion}>Más de 3hs</option>
-            </select>
-          </label>
+          <span>Duración:</span>
+          <input type="radio" name="duracion" value={"1hs"} id="1hs" onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)} /> 1hs
+          <input type="radio" name="duracion" value={"2hs"} id="2hs" onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)} /> 2hs
+          <input type="radio" name="duracion" value={"3hs"} id="3hs" onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)} /> 3hs
+          <input type="radio" name="duracion" value={"Más de 3hs"} id="Más de 3hs" onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)} /> Más de 3hs
+          {errors.duracion && <p className='danger' style={{ visibility: errors.duracion ? "visible" : "hidden" }}>{errors.duracion}</p>}
         </div>
+
         <div>
-          <label>Temporada:
-            <input type="checkbox" name="temporada" value={input.temporada} /> Verano
-            <input type="checkbox" name="temporada" value={input.temporada} /> Otoño
-            <input type="checkbox" name="temporada" value={input.temporada} /> Invierno
-            <input type="checkbox" name="temporada" value={input.temporada} /> Primavera
-          </label>
+          <span>Temporada:</span>
+          <select name="temporada" onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)}>
+            <option>Seleccionar</option>
+            <option name="temporada" value={"Verano"}>Verano</option>
+            <option name="temporada" value={"Otoño"}>Otoño</option>
+            <option name="temporada" value={"Invierno"}>Invierno</option>
+            <option name="temporada" value={"Primavera"}>Primavera</option>
+          </select>
+          {errors.temporada && <p className='danger' style={{ visibility: errors.temporada ? "visible" : "hidden" }}>{errors.temporada}</p>}
         </div>
-        {/* <input type="submit" /> */}
-        <button>Crear</button>
+
+        <button type="submit" disabled={errors.actividad || !input.actividad}>Crear</button>
+
       </form>
     </div>
   )

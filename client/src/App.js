@@ -1,6 +1,6 @@
 import './App.css';
 import Home from './components/Home';
-import LandingPage from './components/landingPage';
+import LandingPage from './components/LandingPage';
 import { Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import About from './components/About';

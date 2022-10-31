@@ -1,7 +1,8 @@
-import { GET_COUNTRIES, ORDER_BY_NAME, GET_COUNTRIE_BY_NAME } from "../actionTypes";
+import { GET_COUNTRIES, ORDER_BY_NAME, GET_COUNTRIE_BY_NAME, POST_ACTIVITY } from "../actionTypes";
 
 const initialState = {
   countries: [],
+  activities: []
 };
 
 
@@ -40,6 +41,10 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         countries: action.payload
+      }
+    case POST_ACTIVITY:
+      return {
+        ...state
       }
     default: return { ...state }
   }
