@@ -47,7 +47,8 @@ router.get("/", async (req, res) => {
           nombre: { [Op.iLike]: `%${name}%` }
         },
         include: {
-          model: Activity
+          model: Activity,
+          /* attributes: ["nombre", "dificultad", "duracion", "temporada"] */
         }
       });
       countries.length ? res.status(200).json(countries) : res.status(404).send("Paises no encontrados");
@@ -65,6 +66,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -81,5 +83,17 @@ router.get("/:id", async (req, res) => {
     res.status(404).send("Algo salio mal en el proceso")
   }
 });
+
+router.get("/continent/:continent", async (req, res) => {
+  const { continent } = req.params;
+  const countriesByContinent = await Country.findAll({
+    where: {
+      continente: { [Op.iLike]: `%${continent}%` }
+    }
+  })
+  if (!countriesByContinent) return res.status(404).send(`El continente ${continent} no corresponde a un continente existente`);
+  res.json(countriesByContinent);
+});
+
 
 module.exports = router 

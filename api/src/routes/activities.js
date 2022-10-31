@@ -9,11 +9,14 @@ router.post("/", async (req, res) => {
   const { nombre, dificultad, duracion, temporada, countries } = req.body;
   if (!nombre || !dificultad || !duracion || !temporada) return res.send("Faltan enviar datos");
   try {
-    const activity = await Activity.create({
-      nombre,
-      dificultad,
-      duracion,
-      temporada,
+    const [activity] = await Activity.findOrCreate({
+      where: { nombre: { [Op.iLike]: `%${nombre}%` } },
+      defaults: {
+        nombre,
+        dificultad,
+        duracion,
+        temporada,
+      }
     });
     for (const id of countries) {
       const country = await Country.findOne({
