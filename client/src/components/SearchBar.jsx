@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getCountrieByName } from '../actions'
 
 function SearchBar() {
 
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
+  const countries = useSelector(state => state.countries)
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -16,6 +17,9 @@ function SearchBar() {
     e.preventDefault();
     dispatch(getCountrieByName(input));
     setInput("");
+    if (!input) return alert("Debe ingresar un pais")
+    //if (countries.filter(e => e.nombre !== input.search())) return alert("El pais ingresado es incorrecto")
+    //if (!input.search(input)) return alert("El pais ingresado es incorrecto")
   }
   return (
     <div>

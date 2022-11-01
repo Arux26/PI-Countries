@@ -22,7 +22,7 @@ export function validate(input) {
 
 function CreateActivity() {
 
-  const countries = useSelector((state) => state.countries);
+  const allCountries = useSelector((state) => state.countries);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -46,7 +46,15 @@ function CreateActivity() {
   });
 
   const [errors, setErrors] = useState({});
-  //const [limpiar, setLimpiar] = useState([])
+  //const [autoComplete, setAutocomplete] = useState([])
+
+
+  /* const handleCountriesChange = (e) => {
+    let handle = countries.filter((c) =>
+      c.nombre.toLowerCase().includes(e.target.name.toLowerCase())
+    );
+    setAutocomplete(handle.slice(0, 4));
+  }; */
 
   const handleOnChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -65,21 +73,58 @@ function CreateActivity() {
     e.preventDefault();
     setErrors(validate({ ...input, [e.target.name]: e.target.value }))
     dispatch(postActivity(input));
-    alert("Personaje creado correctamente")
+    alert("Actividad creada correctamente")
     setInput({ actividad: "", dificultad: "", duracion: "", temporada: "", countries: [] });
     history.push("/home")
   };
 
 
+  function handleSelect(e) {
+    setInput({
+      ...input,
+      countries: [...input.countries, e.target.value]
+    });
+
+    setErrors(validate({
+      ...input,
+      [e.target.name]: e.target.value
+    }));
+  }
+
+  function handleDelete(el) {
+    setInput({
+      ...input,
+      countries: input.countries.filter(c => c !== el)
+    })
+  }
+
   return (
     <div>
-      <form onSubmit={e => handleSubmit(e)}>
+      <form onSubmit={e => handleSubmit(e)} /* onChange={handleCountriesChange} */>
         <div><Link to="/home">Volver</Link></div>
         <h2>Crear Actividad</h2>
-        <div>
+        {/* <div>
           <span>Pais:</span>
-          <input type="text" name="pais" value={input.countries} placeholder="Buscar pais..." onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)} />
+          <input type="text" name="countries" value={input.countries} placeholder="Buscar pais..." onChange={e => handleSelect(e)} onBlur={() => { setTimeout(() => { setAutocomplete([]) }, 200) }}  />
+        </div> */}
+
+        <div>
+          <select onChange={(e) => handleSelect(e)} name="countries">
+            <option>Seleccionar Pais</option>
+            {allCountries.map((el) => (
+              <option value={el.nombre} key={el.nombre}> {el.nombre} </option>
+            ))}
+          </select>
+
+          {errors.countries && <p className='danger'>{errors.countries}</p>}
+          <ul>{input.countries.map(el => <ol key={el} onClick={() => handleDelete(el)}><button>X</button> {el}</ol>)}</ul>
         </div>
+
+        {/* {
+          !errors.name && !errors.difficulty && !errors.duration && !errors.season && !errors.countries ? 
+          : (<p> Todos los campos deben ser completados para poder crear la actividad turistica </p>)
+        } */}
+
 
         <div>
           <span>Actividad:</span>
@@ -122,7 +167,7 @@ function CreateActivity() {
           {errors.temporada && <p className='danger' style={{ visibility: errors.temporada ? "visible" : "hidden" }}>{errors.temporada}</p>}
         </div>
 
-        <button type="submit" disabled={errors.actividad || !input.actividad}>Crear</button>
+        <button type="submit" disabled={errors.actividad || !input.actividad || !input.dificultad || !input.duracion || !input.temporada}>Crear</button>
 
       </form>
     </div>

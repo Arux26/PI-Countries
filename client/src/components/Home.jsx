@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //import { Link } from 'react-router-dom';
-import { getCountries, orderByName } from '../actions';
+import { getCountries, orderByName, orderByPopulation, filterByContinent } from '../actions';
 import Card from './Card';
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
@@ -31,11 +31,24 @@ function Home() {
     dispatch(getCountries());
   }
 
-  function handleSort(e) {
+  function handleSortByName(e) {
     e.preventDefault();
     dispatch(orderByName(e.target.value))
     setCurrentPage(1);
     setOrden(e.target.value)
+  }
+
+  function handleSortByPopulation(e) {
+    e.preventDefault();
+    dispatch(orderByPopulation(e.target.value))
+    setCurrentPage(1);
+    setOrden(e.target.value)
+  }
+
+  function handleFilterByContinent(e) {
+    e.preventDefault();
+    dispatch(filterByContinent(e.target.value))
+    setCurrentPage(1);
   }
 
   return (
@@ -48,27 +61,28 @@ function Home() {
         </div>
         <div>
           <label>Ordenar por:
-            <select onChange={e => handleSort(e)}>
-              <option value={"Alfabeto"}>Alfabeto</option>
+            <select onChange={e => handleSortByName(e)}>
+              <option>Alfabeto</option>
               <option value={"AZ"}>A - Z</option>
               <option value={"ZA"}>Z - A</option>
             </select>
           </label>
-          <select>
-            <option value={"Poblacion"}>Poblacion</option>
+          <select onChange={e => handleSortByPopulation(e)}>
+            <option>Poblacion</option>
             <option value={"Mayor"}>Mayor</option>
             <option value={"Menor"}>Menor</option>
           </select>
         </div>
         <div>
           <label>Filtrar por:
-            <select>
-              <option value={"Continente"}>Continente</option>
+            <select onChange={e => handleFilterByContinent(e)}>
+              <option>Continente</option>
               <option value={"Africa"}>Africa</option>
-              <option value={"Americas"}>America</option>
               <option value={"Antarctic"}>Antartida</option>
               <option value={"Asia"}>Asia</option>
               <option value={"Europe"}>Europa</option>
+              <option value={"North America"}>Norte America</option>
+              <option value={"South America"}>Sur America</option>
               <option value={"Oceania"}>Oceania</option>
             </select>
             <select>
