@@ -46,10 +46,6 @@ router.get("/", async (req, res) => {
         where: {
           nombre: { [Op.iLike]: `%${name}%` }
         },
-        include: {
-          model: Activity,
-          /* attributes: ["nombre", "dificultad", "duracion", "temporada"] */
-        }
       });
       countries.length ? res.status(200).json(countries) : res.status(404).send("Paises no encontrados");
     } else {
