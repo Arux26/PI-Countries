@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import About from './components/About';
 import CreateActivity from './components/CreateActivity';
+import DetailCountry from './components/DetailCountry';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/create">
         <CreateActivity />
       </Route>
+      <Route exact path="/countries/:id" render={() => <DetailCountry />} />
     </div>
 
   );

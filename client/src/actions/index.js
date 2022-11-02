@@ -1,6 +1,6 @@
-//import axios from "axios";
+import axios from "axios";
 
-import { GET_COUNTRIES, ORDER_BY_NAME, GET_COUNTRIE_BY_NAME, POST_ACTIVITY, ORDER_BY_POPULATION, FILTER_BY_CONTINENT } from "../actionTypes";
+import { GET_COUNTRIES, ORDER_BY_NAME, GET_COUNTRIE_BY_NAME, POST_ACTIVITY, ORDER_BY_POPULATION, FILTER_BY_CONTINENT, GET_ACTIVITIES, GET_COUNTRY_DETAIL } from "../actionTypes";
 
 
 export const getCountries = () => dispatch => {
@@ -47,12 +47,34 @@ export const filterByContinent = (continent) => dispatch => {
   }
 };
 
-export const postActivity = (payload) => dispatch => {
+export const getActivities = () => dispatch => {
   try {
-    return fetch('http://localhost:3001/activities', payload)
+    return fetch('http://localhost:3001/activities')
+      .then(r => r.json())
+      .then(resul => { dispatch({ type: GET_ACTIVITIES, payload: resul }) })
+  } catch (e) {
+    console.log(e)
+  }
+};
+export const getCountryDetail = (id) => dispatch => {
+  return fetch(`http://localhost:3001/countries/${id}`)
+    .then(r => r.json())
+    .then(resul => { dispatch({ type: GET_COUNTRY_DETAIL, payload: resul }) })
+};
+
+/* export const postActivity = (payload) => dispatch => {
+  try {
+    return fetch('http://localhost:3001/activities', { method: "POST", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }, body: JSON.stringify({ payload: 'Textual content' }) })
       .then(r => r.json())
       .then(resul => { dispatch({ type: POST_ACTIVITY, payload: resul }) })
   } catch (e) {
     console.log(e)
   }
-};
+}; */
+
+export const postActivity = (payload) => {
+  return async function (dispatch) {
+    const res = await axios.post('http://localhost:3001/activities', payload);
+    return dispatch({ type: POST_ACTIVITY, payload: res.data })
+  }
+}

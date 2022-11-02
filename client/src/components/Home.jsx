@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 //import { Link } from 'react-router-dom';
 import { getCountries, orderByName, orderByPopulation, filterByContinent } from '../actions';
 import Card from './Card';
@@ -26,28 +27,28 @@ function Home() {
     dispatch(getCountries())
   }, [dispatch]);
 
-  function handleAll(e) {
+  const handleAll = (e) => {
     e.preventDefault();
     dispatch(getCountries());
   }
 
-  function handleSortByName(e) {
+  const handleSortByName = (e) => {
     e.preventDefault();
-    dispatch(orderByName(e.target.value))
+    dispatch(e.target.value === "All" ? getCountries() : orderByName(e.target.value))
     setCurrentPage(1);
     setOrden(e.target.value)
   }
 
-  function handleSortByPopulation(e) {
+  const handleSortByPopulation = (e) => {
     e.preventDefault();
-    dispatch(orderByPopulation(e.target.value))
+    dispatch(e.target.value === "All" ? getCountries() : orderByPopulation(e.target.value))
     setCurrentPage(1);
     setOrden(e.target.value)
   }
 
-  function handleFilterByContinent(e) {
+  const handleFilterByContinent = (e) => {
     e.preventDefault();
-    dispatch(filterByContinent(e.target.value))
+    dispatch(e.target.value === "Continente" ? getCountries() : filterByContinent(e.target.value))
     setCurrentPage(1);
   }
 
@@ -62,13 +63,13 @@ function Home() {
         <div>
           <label>Ordenar por:
             <select onChange={e => handleSortByName(e)}>
-              <option>Alfabeto</option>
+              <option value={"All"}>Alfabeto</option>
               <option value={"AZ"}>A - Z</option>
               <option value={"ZA"}>Z - A</option>
             </select>
           </label>
           <select onChange={e => handleSortByPopulation(e)}>
-            <option>Poblacion</option>
+            <option value={"All"}>Poblacion</option>
             <option value={"Mayor"}>Mayor</option>
             <option value={"Menor"}>Menor</option>
           </select>
@@ -76,13 +77,13 @@ function Home() {
         <div>
           <label>Filtrar por:
             <select onChange={e => handleFilterByContinent(e)}>
-              <option>Continente</option>
+              <option value={"Continente"}>Continente</option>
               <option value={"Africa"}>Africa</option>
               <option value={"Antarctic"}>Antartida</option>
               <option value={"Asia"}>Asia</option>
               <option value={"Europe"}>Europa</option>
-              <option value={"North America"}>Norte America</option>
-              <option value={"South America"}>Sur America</option>
+              <option value={"North America"}>America del Norte</option>
+              <option value={"South America"}>America del Sur</option>
               <option value={"Oceania"}>Oceania</option>
             </select>
             <select>
@@ -101,12 +102,14 @@ function Home() {
       {
         currentCountries?.map(e => {
           return (
-            <Card
-              key={e.id}
-              imagen={e.imagen}
-              nombre={e.nombre}
-              continente={e.continente}
-            />
+            <Link to={`/countries/${e.id}`}>
+              <Card
+                key={e.id}
+                imagen={e.imagen}
+                nombre={e.nombre}
+                continente={e.continente}
+              />
+            </Link>
           )
         })
       }

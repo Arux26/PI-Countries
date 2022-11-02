@@ -17,7 +17,7 @@ function SearchBar() {
     e.preventDefault();
     dispatch(getCountrieByName(input));
     setInput("");
-    if (!input) return alert("Debe ingresar un pais")
+    if (!input) return window.confirm("Debe ingresar un pais")
     //if (countries.filter(e => e.nombre !== input.search())) return alert("El pais ingresado es incorrecto")
     //if (!input.search(input)) return alert("El pais ingresado es incorrecto")
   }
