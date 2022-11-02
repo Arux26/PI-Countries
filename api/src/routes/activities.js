@@ -18,9 +18,9 @@ router.post("/", async (req, res) => {
         temporada,
       }
     });
-    for (const id of countries) {
+    for (const nombre of countries) {
       const country = await Country.findOne({
-        where: { id: id }
+        where: { nombre: nombre }
       })
       country.addActivity(activity)
     }

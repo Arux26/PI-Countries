@@ -46,12 +46,23 @@ router.get("/", async (req, res) => {
         where: {
           nombre: { [Op.iLike]: `%${name}%` }
         },
+        include: {
+          model: Activity,
+          //attributes: ["nombre", "dificultad", "duracion", "temporada"],
+          through: {
+            attributes: [],
+          }
+        }
       });
       countries.length ? res.status(200).json(countries) : res.status(404).send("Paises no encontrados");
     } else {
       const allCountries = await Country.findAll({
         include: {
-          model: Activity
+          model: Activity,
+          //attributes: ["nombre", "dificultad", "duracion", "temporada"],
+          through: {
+            attributes: [],
+          }
         }
       });
       res.status(200).json(allCountries);
@@ -66,14 +77,20 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const country = await Country.findOne({
+    const country = await Country.findAll({
       where: {
         id: { [Op.iLike]: `%${id}%` }
       },
-      include: { model: Activity },
+      include: {
+        model: Activity,
+        //attributes: ["nombre", "dificultad", "duracion", "temporada"],
+        through: {
+          attributes: [],
+        }
+      },
     });
     if (!country) return res.status(404).send(`El id ${id} no corresponde a un pais existente`);
-    res.json(country);
+    res.status(200).json(country);
   } catch (e) {
     console.log(e)
     res.status(404).send("Algo salio mal en el proceso")
@@ -88,7 +105,7 @@ router.get("/continent/:continent", async (req, res) => {
     }
   })
   if (!countriesByContinent) return res.status(404).send(`El continente ${continent} no corresponde a un continente existente`);
-  res.json(countriesByContinent);
+  res.status(200).json(countriesByContinent);
 });
 
 
