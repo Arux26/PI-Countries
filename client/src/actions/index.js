@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_COUNTRIES, ORDER_BY_NAME, GET_COUNTRIE_BY_NAME, POST_ACTIVITY, ORDER_BY_POPULATION, FILTER_BY_CONTINENT, GET_ACTIVITIES, GET_COUNTRY_DETAIL } from "../actionTypes";
+import { GET_COUNTRIES, ORDER_BY_NAME, GET_COUNTRIE_BY_NAME, POST_ACTIVITY, ORDER_BY_POPULATION, FILTER_BY_CONTINENT, GET_ACTIVITIES, GET_COUNTRY_DETAIL, FILTER_BY_ACTIVITY } from "../actionTypes";
 
 
 export const getCountries = () => dispatch => {
@@ -47,6 +47,13 @@ export const filterByContinent = (continent) => dispatch => {
   }
 };
 
+export const filterByActivity = (payload) => {
+  return {
+    type: FILTER_BY_ACTIVITY,
+    payload
+  };
+}
+
 export const getActivities = () => dispatch => {
   try {
     return fetch('http://localhost:3001/activities')
@@ -56,10 +63,15 @@ export const getActivities = () => dispatch => {
     console.log(e)
   }
 };
+
 export const getCountryDetail = (id) => dispatch => {
-  return fetch(`http://localhost:3001/countries/${id}`)
-    .then(r => r.json())
-    .then(resul => { dispatch({ type: GET_COUNTRY_DETAIL, payload: resul }) })
+  try {
+    return fetch(`http://localhost:3001/countries/${id}`)
+      .then(r => r.json())
+      .then(resul => { dispatch({ type: GET_COUNTRY_DETAIL, payload: resul }) })
+  } catch (e) {
+    console.log(e)
+  }
 };
 
 /* export const postActivity = (payload) => dispatch => {

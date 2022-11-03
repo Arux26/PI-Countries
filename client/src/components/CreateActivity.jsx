@@ -10,7 +10,7 @@ export function validate(input) {
   let errors = {};
   if (!input.nombre) {
     errors.nombre = 'Escribe una actividad';
-  } else if (/[^a-zA-Z-ñ]/.test(input.nombre)) {
+  } else if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g.test(input.nombre)) {  //   
     errors.nombre = 'La actividad no puede contener simbolos o numeros';
   }
   if (!input.dificultad) errors.dificultad = 'Ingresar una dificultad';
@@ -31,7 +31,7 @@ function CreateActivity() {
   }, [dispatch]);
 
   /* const initialState = {
-    actividad: "",
+    nombre: "",
     dificultad: "",
     duracion: "",
     temporada: "",
@@ -74,7 +74,7 @@ function CreateActivity() {
     setErrors(validate({ ...input, [e.target.name]: e.target.value }))
     dispatch(postActivity(input));
     alert("Actividad creada correctamente")
-    //setInput({ nombre: "", dificultad: "", duracion: "", temporada: "", countries: [] });
+    setInput({ nombre: "", dificultad: "", duracion: "", temporada: "", countries: [] });
     history.push("/home")
   };
 
@@ -136,7 +136,7 @@ function CreateActivity() {
         <div>
           <span>Dificultad:</span>
           <select name="dificultad" id='dificultad' onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)}>
-            <option>Seleccionar</option>
+            <option name="Seleccionar">Seleccionar</option>
             <option name="dificultad" value={"1"}>1</option>
             <option name="dificultad" value={"2"}>2</option>
             <option name="dificultad" value={"3"}>3</option>
@@ -158,7 +158,7 @@ function CreateActivity() {
         <div>
           <span>Temporada:</span>
           <select name="temporada" onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)}>
-            <option>Seleccionar</option>
+            <option name="Seleccionar">Seleccionar</option>
             <option name="temporada" value={"Verano"}>Verano</option>
             <option name="temporada" value={"Otoño"}>Otoño</option>
             <option name="temporada" value={"Invierno"}>Invierno</option>
@@ -167,7 +167,7 @@ function CreateActivity() {
           {errors.temporada && <p className='danger' style={{ visibility: errors.temporada ? "visible" : "hidden" }}>{errors.temporada}</p>}
         </div>
 
-        <button type="submit" disabled={!input.countries.length || errors.actividad || !input.nombre || !input.dificultad || !input.duracion || !input.temporada}>Crear</button>
+        <button type="submit" disabled={!input.countries.length || errors.nombre || !input.nombre || !input.dificultad || input.dificultad === "Seleccionar" || !input.duracion || !input.temporada || input.temporada === "Seleccionar"}>Crear</button>
 
       </form>
     </div>

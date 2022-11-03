@@ -1,4 +1,4 @@
-import { GET_COUNTRIES, ORDER_BY_NAME, GET_COUNTRIE_BY_NAME, POST_ACTIVITY, ORDER_BY_POPULATION, FILTER_BY_CONTINENT, GET_ACTIVITIES, GET_COUNTRY_DETAIL } from "../actionTypes";
+import { GET_COUNTRIES, ORDER_BY_NAME, GET_COUNTRIE_BY_NAME, POST_ACTIVITY, ORDER_BY_POPULATION, FILTER_BY_CONTINENT, GET_ACTIVITIES, GET_COUNTRY_DETAIL, FILTER_BY_ACTIVITY } from "../actionTypes";
 
 const initialState = {
   countries: [],
@@ -50,6 +50,14 @@ function rootReducer(state = initialState, action) {
         ...state,
         countries: action.payload
       }
+    case FILTER_BY_ACTIVITY:
+      let allCountries = [...state.allCountries];
+      let countriesFilter = allCountries.filter(c => c.activities.map(a => a.nombre).includes(action.payload))
+      return {
+        ...state,
+        countries: countriesFilter
+      }
+
     case ORDER_BY_POPULATION:
       let orderByPopulation = action.payload === 'Mayor' ?
         state.countries.sort(function (a, b) {

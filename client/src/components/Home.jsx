@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 //import { Link } from 'react-router-dom';
-import { getCountries, orderByName, orderByPopulation, filterByContinent } from '../actions';
+import { getCountries, orderByName, orderByPopulation, filterByContinent, getActivities, filterByActivity } from '../actions';
 import Card from './Card';
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
@@ -13,6 +13,8 @@ function Home() {
 
   const dispatch = useDispatch();
   const countries = useSelector(state => state.countries);
+  //const allCountries = useSelector(state => state.allCountries);
+  const activities = useSelector(state => state.activities)
   const [orden, setOrden] = useState('')
   const [currentPage, setCurrentPage] = useState(1);
   const [countriesPerPage, setCountriesPerPage] = useState(9);
@@ -25,6 +27,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(getCountries())
+    dispatch(getActivities())
   }, [dispatch]);
 
   const handleAll = (e) => {
@@ -49,6 +52,12 @@ function Home() {
   const handleFilterByContinent = (e) => {
     e.preventDefault();
     dispatch(e.target.value === "Continente" ? getCountries() : filterByContinent(e.target.value))
+    setCurrentPage(1);
+  }
+
+  const handleFilterByActivity = (e) => {
+    e.preventDefault();
+    dispatch(e.target.value === "actTur" ? getCountries() : filterByActivity(e.target.value))
     setCurrentPage(1);
   }
 
@@ -86,14 +95,11 @@ function Home() {
               <option value={"South America"}>America del Sur</option>
               <option value={"Oceania"}>Oceania</option>
             </select>
-            <select>
+            <select onChange={e => handleFilterByActivity(e)}>
               <option value={"actTur"}>Actividad Turistica</option>
-              <option value={"Arquitectura"}>Arquitectura</option>
-              <option value={"Arqueologia"}>Arqueologia</option>
-              <option value={"Esqui"}>Esqui</option>
-              <option value={"Islas"}>Islas</option>
-              <option value={"Safari"}>Safari</option>
-              <option value={"Playa"}>Playa</option>
+              {activities?.map((el) => (
+                <option value={el.nombre} key={el.nombre}>{el.nombre}</option>
+              ))}
             </select>
           </label>
         </div>
@@ -102,14 +108,16 @@ function Home() {
       {
         currentCountries?.map(e => {
           return (
-            <Link to={`/countries/${e.id}`}>
-              <Card
-                key={e.id}
-                imagen={e.imagen}
-                nombre={e.nombre}
-                continente={e.continente}
-              />
-            </Link>
+            <div>
+              <Link to={`/countries/${e.id}`}>
+                <Card
+                  key={e.id}
+                  imagen={e.imagen}
+                  nombre={e.nombre}
+                  continente={e.continente}
+                />
+              </Link>
+            </div>
           )
         })
       }
