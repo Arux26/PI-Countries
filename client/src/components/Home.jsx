@@ -16,19 +16,27 @@ function Home() {
   //const allCountries = useSelector(state => state.allCountries);
   const activities = useSelector(state => state.activities)
   const [orden, setOrden] = useState('')
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [countriesPerPage, setCountriesPerPage] = useState(9);
-  const indexOfLastCountry = currentPage * countriesPerPage; //9
-  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage; //0
-  const currentCountries = countries.slice(indexOfFirstCountry, indexOfLastCountry)
-  const paginado = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  const [countriesPerPage] = useState(10);
+
+  let lastCountry = currentPage * countriesPerPage; //10
+  let firstIndex = lastCountry - countriesPerPage; // 0
+
+  if (currentPage === 1) {
+    firstIndex = 0;
+    lastCountry = 9;
+  } else {
+    firstIndex--;
+    lastCountry--;
+  }
+  const currentCountries = countries.slice(firstIndex, lastCountry)
 
   useEffect(() => {
     dispatch(getCountries())
     dispatch(getActivities())
   }, [dispatch]);
+
 
   const handleAll = (e) => {
     e.preventDefault();
@@ -37,27 +45,27 @@ function Home() {
 
   const handleSortByName = (e) => {
     e.preventDefault();
-    dispatch(e.target.value === "All" ? getCountries() : orderByName(e.target.value))
+    dispatch(orderByName(e.target.value))
     setCurrentPage(1);
     setOrden(e.target.value)
   }
 
   const handleSortByPopulation = (e) => {
     e.preventDefault();
-    dispatch(e.target.value === "All" ? getCountries() : orderByPopulation(e.target.value))
+    dispatch(orderByPopulation(e.target.value))
     setCurrentPage(1);
     setOrden(e.target.value)
   }
 
   const handleFilterByContinent = (e) => {
     e.preventDefault();
-    dispatch(e.target.value === "Continente" ? getCountries() : filterByContinent(e.target.value))
+    dispatch(filterByContinent(e.target.value))
     setCurrentPage(1);
   }
 
   const handleFilterByActivity = (e) => {
     e.preventDefault();
-    dispatch(e.target.value === "actTur" ? getCountries() : filterByActivity(e.target.value))
+    dispatch(filterByActivity(e.target.value))
     setCurrentPage(1);
   }
 
@@ -67,36 +75,36 @@ function Home() {
       <div>
         <div>
           <SearchBar />
-          <button onClick={e => handleAll(e)}>Mostrar Todos</button>
+          <button onClick={e => handleAll(e)}>Show all</button>
         </div>
         <div>
-          <label>Ordenar por:
+          <label>Sort by:
             <select onChange={e => handleSortByName(e)}>
-              <option value={"All"}>Alfabeto</option>
+              <option hidden>Alphabet</option>
               <option value={"AZ"}>A - Z</option>
               <option value={"ZA"}>Z - A</option>
             </select>
           </label>
           <select onChange={e => handleSortByPopulation(e)}>
-            <option value={"All"}>Poblacion</option>
-            <option value={"Mayor"}>Mayor</option>
-            <option value={"Menor"}>Menor</option>
+            <option hidden>Population</option>
+            <option value={"Higher"}>Higher</option>
+            <option value={"Minor"}>Minor</option>
           </select>
         </div>
         <div>
-          <label>Filtrar por:
+          <label>Filter by:
             <select onChange={e => handleFilterByContinent(e)}>
-              <option value={"Continente"}>Continente</option>
+              <option hidden>Continent</option>
               <option value={"Africa"}>Africa</option>
-              <option value={"Antarctic"}>Antartida</option>
+              <option value={"Antarctic"}>Antarctic</option>
               <option value={"Asia"}>Asia</option>
-              <option value={"Europe"}>Europa</option>
-              <option value={"North America"}>America del Norte</option>
-              <option value={"South America"}>America del Sur</option>
+              <option value={"Europe"}>Europe</option>
+              <option value={"North America"}>North America</option>
+              <option value={"South America"}>South America</option>
               <option value={"Oceania"}>Oceania</option>
             </select>
             <select onChange={e => handleFilterByActivity(e)}>
-              <option value={"actTur"}>Actividad Turistica</option>
+              <option hidden>Tourist Activity</option>
               {activities?.map((el) => (
                 <option value={el.nombre} key={el.nombre}>{el.nombre}</option>
               ))}
@@ -104,7 +112,8 @@ function Home() {
           </label>
         </div>
       </div>
-      <Paginado countriesPerPage={countriesPerPage} allCountries={countries.length} paginado={paginado} />
+      <Paginado countriesPerPage={countriesPerPage} allCountries={countries.length} setCurrentPage={setCurrentPage} />
+
       {
         currentCountries?.map(e => {
           return (

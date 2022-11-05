@@ -1,34 +1,32 @@
 import React from 'react'
+import { useEffect, useState } from "react";
 
-function Paginado({ countriesPerPage, allCountries, paginado }) {
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(allCountries / countriesPerPage); i++) {
-        pageNumbers.push(i);
-        //console.log(pageNumbers)
-    }
 
-    return (
-        <nav>
-            <ul>
-                {pageNumbers?.map((number, i) => (
-                    <a key={i} onClick={() => paginado(number)}>{number}</a>
-                ))}
-            </ul>
-        </nav>
-    );
-}
+function Paginado({ countriesPerPage, allCountries, setCurrentPage }) {
+  const [pages, setPages] = useState([]);
 
-export default Paginado;
+  useEffect(() => {
+    let paginas = [1];
+    let restCountries = allCountries - 9; // resto 9 x la primer pag ---> 241
+    if (restCountries === 241)
+      for (let i = 2; i <= Math.ceil(restCountries / countriesPerPage) + 1; i++) {
+        paginas.push(i);
+      }
+    setPages(paginas);
+  }, [allCountries]);
 
-/* import React from 'react';
-const Paginado = () => {
-
+  /*   useEffect(() => {
+      if (currentPage > pages.length && pages.length !== 0)
+        setCurrentPage(pages.at(-1));
+    }, [currentPage, pages, setCurrentPage]); */
 
   return (
     <div>
-      <h2>HOLAAAAAAAAAAAAAAAAAAAAA</h2>
+      {pages.map((page) => (
+        <button key={page} onClick={() => setCurrentPage(page)}>{page}</button>
+      ))}
     </div>
   );
-};
+}
 
-export default Paginado; */
+export default Paginado;
