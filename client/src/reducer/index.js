@@ -16,6 +16,11 @@ function rootReducer(state = initialState, action) {
         countries: action.payload,
         allCountries: action.payload
       }
+    case GET_COUNTRIE_BY_NAME:
+      return {
+        ...state,
+        countries: action.payload
+      }
     case ORDER_BY_NAME:
       let orderCountries = action.payload === 'AZ' ? //asc
         state.countries.sort(function (a, b) {
@@ -40,24 +45,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         countries: orderCountries
       }
-    case GET_COUNTRIE_BY_NAME:
-      return {
-        ...state,
-        countries: action.payload
-      }
-    case FILTER_BY_CONTINENT:
-      return {
-        ...state,
-        countries: action.payload
-      }
-    case FILTER_BY_ACTIVITY:
-      let allCountries = [...state.allCountries];
-      let countriesFilter = allCountries.filter(c => c.activities.map(a => a.nombre).includes(action.payload))
-      return {
-        ...state,
-        countries: countriesFilter
-      }
-
     case ORDER_BY_POPULATION:
       let orderByPopulation = action.payload === 'Higher' ?
         state.countries.sort(function (a, b) {
@@ -82,14 +69,26 @@ function rootReducer(state = initialState, action) {
         ...state,
         countries: orderByPopulation
       }
-    case POST_ACTIVITY:
+    case FILTER_BY_CONTINENT:
       return {
-        ...state
+        ...state,
+        countries: action.payload
+      }
+    case FILTER_BY_ACTIVITY:
+      let allCountries = [...state.allCountries];
+      let countriesFilter = allCountries.filter(c => c.activities.map(a => a.nombre).includes(action.payload))
+      return {
+        ...state,
+        countries: countriesFilter
       }
     case GET_ACTIVITIES:
       return {
         ...state,
         activities: action.payload
+      }
+    case POST_ACTIVITY:
+      return {
+        ...state
       }
     case GET_COUNTRY_DETAIL:
       return {

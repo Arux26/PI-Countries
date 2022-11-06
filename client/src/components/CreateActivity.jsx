@@ -1,10 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCountries, postActivity } from '../actions';
-// import Lupa2 from '../images/Lupa2.jpg'
-
 
 export function validate(input) {
   let errors = {};
@@ -30,13 +28,7 @@ function CreateActivity() {
     dispatch(getCountries())
   }, [dispatch]);
 
-  /* const initialState = {
-    nombre: "",
-    dificultad: "",
-    duracion: "",
-    temporada: "",
-  } */
-  /* onBlur={() => { setTimeout(() => { setLimpiar([]); }, 200); }} */
+
   const [input, setInput] = useState({
     nombre: "",
     dificultad: "",
@@ -74,7 +66,7 @@ function CreateActivity() {
     setErrors(validate({ ...input, [e.target.name]: e.target.value }))
     dispatch(postActivity(input));
     alert("Activity created successfully ✓")
-    setInput({ nombre: "", dificultad: "", duracion: "", temporada: "", countries: [] });
+    //setInput({ nombre: "", dificultad: "", duracion: "", temporada: "", countries: [] });
     history.push("/home")
   };
 

@@ -6,7 +6,7 @@ import NavBar from './components/NavBar';
 import About from './components/About';
 import CreateActivity from './components/CreateActivity';
 import DetailCountry from './components/DetailCountry';
-import NotFound from './components/NotFound';
+
 
 function App() {
   return (
@@ -29,10 +29,6 @@ function App() {
       <Route exact path="/countries/:id">
         <DetailCountry />
       </Route>
-      {/* <Route exact path="/countries/:id" render={() => <DetailCountry />} /> */}
-      {/* <Route exact path="*">
-        <NotFound />
-      </Route> */}
     </div>
 
   );

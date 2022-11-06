@@ -1,12 +1,12 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import img404 from '../images/img404.jpeg';
 
 function NotFound() {
   return (
     <div>
-      NotFound
+      <h3>Oops, nothing match with your request</h3>
       <br />
-      <Link to="/home">Home</Link>
+      <img src={img404} alt="img not found" />
     </div>
 
   )

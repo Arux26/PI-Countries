@@ -28,14 +28,14 @@ export const orderByName = (payload) => {
     type: ORDER_BY_NAME,
     payload
   }
-}
+};
 
 export const orderByPopulation = (payload) => {
   return {
     type: ORDER_BY_POPULATION,
     payload
   }
-}
+};
 
 export const filterByContinent = (continent) => dispatch => {
   try {
@@ -52,7 +52,7 @@ export const filterByActivity = (payload) => {
     type: FILTER_BY_ACTIVITY,
     payload
   };
-}
+};
 
 export const getActivities = () => dispatch => {
   try {
@@ -61,6 +61,13 @@ export const getActivities = () => dispatch => {
       .then(resul => { dispatch({ type: GET_ACTIVITIES, payload: resul }) })
   } catch (e) {
     console.log(e)
+  }
+};
+
+export const postActivity = (payload) => {
+  return async function (dispatch) {
+    const res = await axios.post('http://localhost:3001/activities', payload);
+    return dispatch({ type: POST_ACTIVITY, payload: res.data })
   }
 };
 
@@ -84,9 +91,4 @@ export const getCountryDetail = (id) => dispatch => {
   }
 }; */
 
-export const postActivity = (payload) => {
-  return async function (dispatch) {
-    const res = await axios.post('http://localhost:3001/activities', payload);
-    return dispatch({ type: POST_ACTIVITY, payload: res.data })
-  }
-}
+

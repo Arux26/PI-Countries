@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getCountrieByName } from '../actions'
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCountrieByName } from '../actions';
 
 function SearchBar() {
 

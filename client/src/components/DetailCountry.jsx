@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from 'react-router-dom';
 import { getCountryDetail } from '../actions';
+import Loading from './Loading';
 
 
 
@@ -20,7 +21,7 @@ function DetailCountry() {
     <div>
       <div><Link to="/home"><button>← Back</button></Link></div>
       <br />
-      {countrie?.map(c => {
+      {!countrie.length ? <Loading /> : countrie.map(c => {
         return (
           <div>
             <img src={c.imagen} alt="img not found" witdh="200px" height="200px" />
