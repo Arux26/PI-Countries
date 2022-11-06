@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCountries, orderByName, orderByPopulation, filterByContinent, getActivities, filterByActivity } from '../actions';
 import Card from './Card';
+import Loading from './Loading';
+import NavBar from './NavBar';
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
 
@@ -70,6 +72,7 @@ function Home() {
 
   return (
     <div>
+      <NavBar />
       <h2>Welcome</h2>
       <div>
         <div>
@@ -114,7 +117,7 @@ function Home() {
       <Paginado countriesPerPage={countriesPerPage} allCountries={countries.length} setCurrentPage={setCurrentPage} />
 
       {
-        currentCountries?.map(e => {
+        currentCountries.length ? currentCountries.map(e => {
           return (
             <div>
               <Link to={`/countries/${e.id}`}>
@@ -127,7 +130,7 @@ function Home() {
               </Link>
             </div>
           )
-        })
+        }) : <Loading />
       }
     </div>
   )

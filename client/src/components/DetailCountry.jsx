@@ -21,7 +21,7 @@ function DetailCountry() {
     <div>
       <div><Link to="/home"><button>← Back</button></Link></div>
       <br />
-      {!countrie.length ? <Loading /> : countrie.map(c => {
+      {countrie.length ? countrie.map(c => {
         return (
           <div>
             <img src={c.imagen} alt="img not found" witdh="200px" height="200px" />
@@ -46,7 +46,7 @@ function DetailCountry() {
             }) : <span>Has no activities</span>}</h4>
           </div>
         )
-      })}
+      }) : <Loading />}
     </div>
   )
 }

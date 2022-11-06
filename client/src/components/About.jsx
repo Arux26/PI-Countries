@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function About() {
   return (
     <div>
       <div>
+        <Link to="/home"><button>← Back</button></Link>
         <h2>Hello, thanks for viewing my project!</h2>
         <span>My name is Aníbal Ariel Trangoni and this my Individual Project for Henry's Web Development Course.
           <br />
