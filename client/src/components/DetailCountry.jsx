@@ -20,7 +20,7 @@ function DetailCountry() {
     <div>
       <div><Link to="/home"><button>← Back</button></Link></div>
       <br />
-      {countrie.map(c => {
+      {countrie?.map(c => {
         return (
           <div>
             <img src={c.imagen} alt="img not found" witdh="200px" height="200px" />

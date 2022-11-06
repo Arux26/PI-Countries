@@ -82,7 +82,8 @@ function CreateActivity() {
   function handleSelect(e) {
     setInput({
       ...input,
-      countries: [...input.countries, e.target.value]
+      //countries: [...input.countries.includes(e.target.value) ? [...input.countries.filter(e => e.nombre === e.target.value)] : [...input.countries], e.target.value]
+      countries: [...input.countries, e.target.value],
     });
 
     setErrors(validate({

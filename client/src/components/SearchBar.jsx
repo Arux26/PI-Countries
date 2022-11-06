@@ -17,11 +17,11 @@ function SearchBar() {
     e.preventDefault();
     dispatch(getCountrieByName(input));
     if (!input) return window.confirm("You must enter a country")
-    /*   for (const nombre of countries) {
-        let country = nombre.match(input)
-        if (country) return true
-        return alert("asDSAdsadsadsad")
-      } */
+    /* for (const nombre of countries) {
+      let country = nombre.includes(input)
+      if (country) return true
+      return alert("asDSAdsadsadsad")
+    } */
     //if (countries.map(e => e.nombre.toLowerCase().includes(input.toLowerCase()))) return alert("El pais ingresado es incorrecto")
     //if (countries.map(e => e.nombre.toLowerCase().search(input.toLowerCase()))) return alert("El pais ingresado es incorrecto")
     //if (!countries.includes(e => e.nombre !== input)) return window.confirm("Debe ingresar un pais")

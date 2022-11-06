@@ -26,10 +26,13 @@ function App() {
       <Route path="/create">
         <CreateActivity />
       </Route>
-      <Route exact path="/countries/:id" render={() => <DetailCountry />} />
-      <Route path="*">
-        <NotFound />
+      <Route exact path="/countries/:id">
+        <DetailCountry />
       </Route>
+      {/* <Route exact path="/countries/:id" render={() => <DetailCountry />} /> */}
+      {/* <Route exact path="*">
+        <NotFound />
+      </Route> */}
     </div>
 
   );

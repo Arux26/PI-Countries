@@ -38,7 +38,7 @@ function Home() {
   }, [dispatch]);
 
 
-  const handleAll = (e) => {
+  const handleAllCountries = (e) => {
     e.preventDefault();
     dispatch(getCountries());
   }
@@ -75,7 +75,7 @@ function Home() {
       <div>
         <div>
           <SearchBar />
-          <button onClick={e => handleAll(e)}>Show all</button>
+          <button onClick={e => handleAllCountries(e)}>Show all</button>
         </div>
         <div>
           <label>Sort by:
