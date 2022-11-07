@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from 'react-router-dom';
-import { getCountryDetail } from '../actions';
-import Loading from './Loading';
-import NotFound from './NotFound';
+import { getCountryDetail } from '../../actions';
+import Loading from '../Loading/Loading';
+import NotFound from '../NotFound/NotFound';
 
 
 function DetailCountry() {

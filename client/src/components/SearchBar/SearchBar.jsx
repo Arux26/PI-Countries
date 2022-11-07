@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountrieByName } from '../actions';
-import { useHistory } from 'react-router-dom';
+import { getCountrieByName } from '../../actions';
+//import { useHistory } from 'react-router-dom';
 
 
 function SearchBar() {

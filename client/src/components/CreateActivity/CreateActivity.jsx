@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountries, postActivity } from '../actions';
+import { getCountries, postActivity } from '../../actions';
 
 export function validate(input) {
   let errors = {};

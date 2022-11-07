@@ -2,21 +2,20 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getCountries, orderByName, orderByPopulation, filterByContinent, getActivities, filterByActivity } from '../actions';
-import Card from './Card';
-import Loading from './Loading';
-import NavBar from './NavBar';
-import Paginado from './Paginado';
-import SearchBar from './SearchBar';
+import { getCountries, orderByName, orderByPopulation, filterByContinent, getActivities, filterByActivity } from '../../actions';
+import Card from '../Card/Card';
+import Loading from '../Loading/Loading';
+import NavBar from '../NavBar/NavBar';
+import Paginado from '../Paginado/Paginado';
+import SearchBar from '../SearchBar/SearchBar';
 
 
 function Home() {
 
   const dispatch = useDispatch();
   const countries = useSelector(state => state.countries);
-  //const loading = useSelector(state => state.loading);
-  const activities = useSelector(state => state.activities)
-  const [orden, setOrden] = useState('')
+  const activities = useSelector(state => state.activities);
+  const [orden, setOrden] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
   const [countriesPerPage] = useState(10);
@@ -31,11 +30,11 @@ function Home() {
     firstIndex--;
     lastCountry--;
   }
-  const currentCountries = countries.slice(firstIndex, lastCountry)
+  const currentCountries = countries.slice(firstIndex, lastCountry);
 
   useEffect(() => {
-    dispatch(getCountries())
-    dispatch(getActivities())
+    dispatch(getCountries());
+    dispatch(getActivities());
   }, [dispatch]);
 
 
@@ -46,27 +45,27 @@ function Home() {
 
   const handleSortByName = (e) => {
     e.preventDefault();
-    dispatch(orderByName(e.target.value))
+    dispatch(orderByName(e.target.value));
     setCurrentPage(1);
-    setOrden(e.target.value)
+    setOrden(e.target.value);
   }
 
   const handleSortByPopulation = (e) => {
     e.preventDefault();
-    dispatch(orderByPopulation(e.target.value))
+    dispatch(orderByPopulation(e.target.value));
     setCurrentPage(1);
-    setOrden(e.target.value)
+    setOrden(e.target.value);
   }
 
   const handleFilterByContinent = (e) => {
     e.preventDefault();
-    dispatch(filterByContinent(e.target.value))
+    e.target.value === "All" ? dispatch(getCountries()) : dispatch(filterByContinent(e.target.value));
     setCurrentPage(1);
   }
 
   const handleFilterByActivity = (e) => {
     e.preventDefault();
-    dispatch(filterByActivity(e.target.value))
+    dispatch(filterByActivity(e.target.value));
     setCurrentPage(1);
   }
 
@@ -97,6 +96,7 @@ function Home() {
           <label>Filter by:
             <select onChange={e => handleFilterByContinent(e)}>
               <option hidden>Continent</option>
+              <option value={"All"}>All</option>
               <option value={"Africa"}>Africa</option>
               <option value={"Antarctic"}>Antarctic</option>
               <option value={"Asia"}>Asia</option>
@@ -107,6 +107,7 @@ function Home() {
             </select>
             <select onChange={e => handleFilterByActivity(e)}>
               <option hidden>Tourist Activity</option>
+              <option value={"All"}>All</option>
               {activities?.map((el) => (
                 <option value={el.nombre} key={el.nombre}>{el.nombre}</option>
               ))}
@@ -134,6 +135,6 @@ function Home() {
       }
     </div>
   )
-}
+};
 
 export default Home;

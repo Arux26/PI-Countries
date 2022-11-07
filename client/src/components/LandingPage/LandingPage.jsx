@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LinkedIn from '../images/LinkedIn.jpg';
-import GitHub from '../images/GitHub.png';
+import LinkedIn from '../../images/LinkedIn.jpg';
+import GitHub from '../../images/GitHub.png';
 
 
 function LandingPage() {

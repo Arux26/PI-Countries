@@ -1,12 +1,11 @@
 import './App.css';
-import Home from './components/Home';
-import LandingPage from './components/LandingPage';
 import { Route, Switch } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import About from './components/About';
-import CreateActivity from './components/CreateActivity';
-import DetailCountry from './components/DetailCountry';
-import NotFound from './components/NotFound';
+import LandingPage from './components/LandingPage/LandingPage';
+import Home from './components/Home/Home';
+import About from './components/About/About';
+import CreateActivity from './components/CreateActivity/CreateActivity';
+import DetailCountry from './components/DetailCountry/DetailCountry';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
   return (

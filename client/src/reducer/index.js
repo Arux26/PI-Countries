@@ -37,8 +37,8 @@ function rootReducer(state = initialState, action) {
             return -1;
           }
           return 0;
-        }) :
-        state.countries.sort(function (a, b) { //desc
+        })
+        : state.countries.sort(function (a, b) { //desc
           if (a.nombre > b.nombre) {
             return -1;
           }
@@ -61,8 +61,8 @@ function rootReducer(state = initialState, action) {
             return 1;
           }
           return 0;
-        }) :
-        state.countries.sort(function (a, b) { //desc
+        })
+        : state.countries.sort(function (a, b) { //desc
           if (a.poblacion > b.poblacion) {
             return 1;
           }
@@ -82,10 +82,11 @@ function rootReducer(state = initialState, action) {
       }
     case FILTER_BY_ACTIVITY:
       let allCountries = [...state.allCountries];
-      let countriesFilter = allCountries.filter(c => c.activities.map(a => a.nombre).includes(action.payload))
+      let All = action.payload === "All" ? allCountries.filter(c => c.activities.length !== 0)
+        : allCountries.filter(c => c.activities.map(a => a.nombre).includes(action.payload))
       return {
         ...state,
-        countries: countriesFilter
+        countries: All
       }
     case GET_ACTIVITIES:
       return {
