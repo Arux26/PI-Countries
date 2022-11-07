@@ -14,7 +14,7 @@ function Home() {
 
   const dispatch = useDispatch();
   const countries = useSelector(state => state.countries);
-  //const allCountries = useSelector(state => state.allCountries);
+  //const loading = useSelector(state => state.loading);
   const activities = useSelector(state => state.activities)
   const [orden, setOrden] = useState('')
 

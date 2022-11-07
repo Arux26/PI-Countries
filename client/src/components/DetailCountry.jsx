@@ -3,27 +3,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from 'react-router-dom';
 import { getCountryDetail } from '../actions';
 import Loading from './Loading';
-
+import NotFound from './NotFound';
 
 
 function DetailCountry() {
 
-  const countrie = useSelector(state => state.countryDetail)
-  const dispatch = useDispatch()
-  const { id } = useParams()
+  const countrie = useSelector(state => state.countryDetail);
+  const loading = useSelector(state => state.loading);
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getCountryDetail(id))
+    dispatch(getCountryDetail(id));
   }, [dispatch, id])
 
   return (
 
     <div>
-      <div><Link to="/home"><button>← Back</button></Link></div>
       <br />
-      {countrie.length ? countrie.map(c => {
+      {loading ? <Loading /> : countrie.length ? countrie.map(c => {
         return (
           <div>
+            <div><Link to="/home"><button>← Back</button></Link></div>
             <img src={c.imagen} alt="img not found" witdh="200px" height="200px" />
             <h4>{c.nombre}</h4>
             <h4>Country Code: {c.id}</h4>
@@ -46,7 +47,7 @@ function DetailCountry() {
             }) : <span>Has no activities</span>}</h4>
           </div>
         )
-      }) : <Loading />}
+      }) : <NotFound />}
     </div>
   )
 }

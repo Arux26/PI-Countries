@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCountrieByName } from '../actions';
+import { useHistory } from 'react-router-dom';
+
 
 function SearchBar() {
 
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
-  const countries = useSelector(state => state.countries)
+  const countries = useSelector(state => state.countries);
+
+
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -15,24 +19,23 @@ function SearchBar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getCountrieByName(input));
-    if (!input) return window.confirm("You must enter a country")
-    /* for (const nombre of countries) {
-      let country = nombre.includes(input)
-      if (country) return true
-      return alert("asDSAdsadsadsad")
-    } */
-    //if (countries.map(e => e.nombre.toLowerCase().includes(input.toLowerCase()))) return alert("El pais ingresado es incorrecto")
-    //if (countries.map(e => e.nombre.toLowerCase().search(input.toLowerCase()))) return alert("El pais ingresado es incorrecto")
-    //if (!countries.includes(e => e.nombre !== input)) return window.confirm("Debe ingresar un pais")
-    //if (!countries.some(e => e.nombre.match(input))) return alert("asdsaddassdadsadsadasdsa")
-    setInput("");
+    const country = countries.filter(e => e.nombre.toLowerCase().includes(input.toLowerCase()))
+    if (!country.length) {
+      alert("There are no countries with the entered text")
+      setInput('')
+    } else {
+      dispatch(getCountrieByName(input))
+      setInput('')
+    }
+    if (!input) return window.confirm("You must enter a country");
   }
 
   return (
     <div>
-      <input type="text" value={input} placeholder="Enter country..." onChange={e => handleOnChange(e)} />
-      <button onClick={e => handleSubmit(e)}>Search</button>
+      <form onSubmit={handleSubmit}>
+        <input type="text" value={input} placeholder="Enter country..." onChange={e => handleOnChange(e)} />
+        <input type="submit" value='Search' />
+      </form>
     </div>
   )
 }
