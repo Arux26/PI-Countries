@@ -1,0 +1,76 @@
+.home h2 {
+  font-family: system-ui;
+  margin-top: 5rem;
+  color: transparent;
+  font-size: 70px;
+  background-image: linear-gradient(180deg, #ffe993, #aa5d10);
+  background-clip: text;
+  -webkit-background-clip: text;
+  box-shadow: 0 0 0.5em 0 #ffffff, 0 0 0.5em 0 #aa5d10;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  animation: anim 3s;
+}
+
+@keyframes anim {
+  from {
+    width: 0;
+  }
+}
+
+.button {
+  font-family: Courier, monospace;
+  background-color: black;
+  font-size: 2rem;
+  margin-top: 8rem;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  color: #aa5d10;
+  border: #aa5d10 0.125em solid;
+  padding: 0.25em 1em;
+  border-radius: 0.25em;
+  text-shadow: 0 0 0.125em white, 0 0 0.45em #aa5d10;
+  box-shadow: inset 0 0 0.5em 0 #aa5d10, 0 0 0.5em 0 #aa5d10;
+  position: relative;
+  transition: background-color 100ms linear, box-shadow 100ms linear;
+}
+
+.button::before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  background: #aa5d10;
+  top: 120%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: perspective(1em) rotateX(40deg) scale(1, 0.35);
+  filter: blur(1em);
+  opacity: 0.7;
+}
+
+.button::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  box-shadow: 0 0 2em 0.5em #aa5d10;
+  opacity: 0;
+  transition: opacity 1s linear;
+}
+
+.button:hover,
+.button:focus {
+  background: #aa5d10;
+  color: #252525;
+  text-shadow: none;
+  box-shadow: 0 0 2em 0.1em #aa5d10;
+}
+
+.button::after {
+  opacity: 1;
+}

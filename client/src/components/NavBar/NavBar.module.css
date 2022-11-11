@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 2rem;
+  flex-direction: row;
+  background-color: #af6a25;
+  padding: 0.5rem;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: 0 0 10px #000;
+  position: sticky;
+  background-image: linear-gradient(#af6a25, rgba(202, 178, 42, 0.548), #af6a25);
+}
+
+
+.link {
+  color: rgb(110, 8, 8);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: large;
+  padding: 0.1em 0.5em;
+
+}
+
+.link:hover {
+  box-shadow: 0 0 0.5em 0 #ffffff, 0 0 0.5em 0 #aa5d10;
+  border-radius: 45%;
+  color: rgb(14, 13, 13);
+}

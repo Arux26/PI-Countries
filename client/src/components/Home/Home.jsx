@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { getCountries, orderByName, orderByPopulation, filterByContinent, getActivities, filterByActivity } from '../../actions';
 import Card from '../Card/Card';
 import Loading from '../Loading/Loading';
 import NavBar from '../NavBar/NavBar';
 import Paginado from '../Paginado/Paginado';
 import SearchBar from '../SearchBar/SearchBar';
+import s from "./home.module.css"
 
 
 function Home() {
@@ -70,9 +70,9 @@ function Home() {
   }
 
   return (
-    <div>
+    <div className={s.contenedorPrinc}>
       <NavBar />
-      <h2>Welcome</h2>
+      {/* <h2 className={s.title}>Welcome</h2> */}
       <div>
         <div>
           <SearchBar />
@@ -116,23 +116,24 @@ function Home() {
         </div>
       </div>
       <Paginado countriesPerPage={countriesPerPage} allCountries={countries.length} setCurrentPage={setCurrentPage} />
+      <div className={s.cardContainer}>
+        {
+          currentCountries.length ? currentCountries.map(e => {
+            return (
+              <div >
 
-      {
-        currentCountries.length ? currentCountries.map(e => {
-          return (
-            <div>
-              <Link to={`/countries/${e.id}`}>
                 <Card
+                  id={e.id}
                   key={e.id}
                   imagen={e.imagen}
                   nombre={e.nombre}
                   continente={e.continente}
                 />
-              </Link>
-            </div>
-          )
-        }) : <Loading />
-      }
+              </div>
+            )
+          }) : <Loading />
+        }
+      </div>
     </div>
   )
 };

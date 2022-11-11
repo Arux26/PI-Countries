@@ -38,7 +38,7 @@ function rootReducer(state = initialState, action) {
           }
           return 0;
         })
-        : state.countries.sort(function (a, b) { //desc
+        : state.countries.sort(function (a, b) { //desc 
           if (a.nombre > b.nombre) {
             return -1;
           }

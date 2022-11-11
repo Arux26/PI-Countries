@@ -1,0 +1,26 @@
+.cardContainer {
+  margin-top: 2rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.contenedorPrinc {
+  text-decoration: none;
+}
+
+
+.title {
+  display: flex;
+  margin-left: .5rem;
+  font-family: system-ui;
+  margin-top: .2rem;
+  color: transparent;
+  font-size: 70px;
+  background-image: linear-gradient(180deg, #ffe993, #aa5d10);
+  background-clip: text;
+  -webkit-background-clip: text;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}

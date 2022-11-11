@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-
+import s from './paginado.module.css';
 
 function Paginado({ countriesPerPage, allCountries, setCurrentPage }) {
   const [pages, setPages] = useState([]);
@@ -21,9 +21,9 @@ function Paginado({ countriesPerPage, allCountries, setCurrentPage }) {
     }, [currentPage, pages, setCurrentPage]); */
 
   return (
-    <div>
+    <div className={s.cardContainer}>
       {pages.map((page) => (
-        <button key={page} onClick={() => setCurrentPage(page)}>{page}</button>
+        <button className={s.button} key={page} onClick={() => setCurrentPage(page)}>{page}</button>
       ))}
     </div>
   );

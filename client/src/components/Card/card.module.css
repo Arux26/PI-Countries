@@ -1,0 +1,190 @@
+.card {
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #99a0a7;
+  border-radius: 20px 100px;
+  padding: 0.25rem;
+  position: relative;
+  margin: 0.5rem;
+  align-items: center;
+  backdrop-filter: blur(3rem);
+  background-color: transparent;
+  text-shadow: 0 0 0.125em white, 0 0 0.45em #aa5d10;
+}
+
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50px;
+  filter: blur(35px);
+  z-index: -20;
+  transition: all .4s;
+}
+
+.card::before {
+  top: -0%;
+  left: -0%;
+  background: rgb(112, 216, 147);
+}
+
+.card::after {
+  bottom: -0%;
+  right: -0%;
+  background: #b8bac2;
+}
+
+.card:hover::before {
+  transform: translateY(100%) scale(2);
+}
+
+.card:hover::after {
+  transform: translateY(-100%) scale(2);
+}
+
+.card:hover {
+  animation: vibrate 0.5s;
+  animation-iteration-count: initial;
+}
+
+@keyframes vibrate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  10% {
+    transform: rotate(-1deg);
+  }
+
+  20% {
+    transform: rotate(1deg);
+  }
+
+  30% {
+    transform: rotate(0deg);
+  }
+
+  40% {
+    transform: rotate(1deg);
+  }
+
+  50% {
+    transform: rotate(-1deg);
+  }
+}
+
+.nombre {
+  margin-top: 0.5rem;
+  width: 80%;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  filter: drop-shadow(10px 4px 8px #9c690a);
+
+}
+
+.continente {
+  margin-top: -10px;
+  display: flex;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  filter: drop-shadow(2px 4px 8px #9c690a);
+}
+
+.button {
+  color: rgba(255, 255, 255, 0.719);
+  width: 200px;
+  font-size: xx-large;
+  cursor: pointer;
+  font-family: 'Tapestry', cursive;
+  font-size: 1rem;
+  border-radius: 20px 100px;
+  border: 1px solid rgb(158, 167, 157);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+  filter: drop-shadow(2px 4px 8px #9c690a);
+  text-shadow: 0 0 0.125em white, 0 0 0.45em #aa5d10;
+  box-shadow: inset 0 0 0.5em 0 #aa5d10, 0 0 0.5em 0 #aa5d10;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #aa5d10;
+  border: 1px solid #000000;
+}
+
+.img {
+  width: 250px;
+  height: 250px;
+  border-radius: 30px;
+  margin-bottom: .8rem;
+  filter: drop-shadow(2px 4px 8px #9c690a);
+}
+
+
+
+/* @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100&family=Kanit:wght@200&family=Nunito&display=swap');
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  width: fit-content;
+  padding: 0.25rem;
+  position: relative;
+  margin: 0.5rem;
+  backdrop-filter: blur(5px);
+}
+
+.card:hover {
+  user-select: none;
+
+}
+
+.name {
+  display: flex;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-family: 'Nunito', sans-serif;
+  color: var(--text);
+}
+
+.btn {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+  background-color: #e76f51;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  color: whitesmoke;
+  font-family: 'Nunito', sans-serif;
+
+  cursor: pointer;
+
+}
+
+
+.btn:hover {
+  background-color: whitesmoke;
+  color: #e76f51;
+  border: 1px solid #e76f51;
+} */
