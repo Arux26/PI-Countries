@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCountrieByName } from '../../actions';
 //import { useHistory } from 'react-router-dom';
-
+import s from './searchBar.module.css';
 
 function SearchBar() {
 
@@ -31,10 +31,10 @@ function SearchBar() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={input} placeholder="Enter country..." onChange={e => handleOnChange(e)} />
-        <input type="submit" value='Search' />
+    <div className={s.searchBar}>
+      <form onSubmit={handleSubmit} className={s.searchBar}>
+        <input className={s.input} type="text" value={input} placeholder="Enter country..." onChange={e => handleOnChange(e)} />
+        <input className={s.btn} type="submit" value='Search' />
       </form>
     </div>
   )

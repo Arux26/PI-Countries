@@ -6,7 +6,6 @@ import Card from '../Card/Card';
 import Loading from '../Loading/Loading';
 import NavBar from '../NavBar/NavBar';
 import Paginado from '../Paginado/Paginado';
-import SearchBar from '../SearchBar/SearchBar';
 import s from "./home.module.css"
 
 
@@ -69,32 +68,38 @@ function Home() {
     setCurrentPage(1);
   }
 
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
+
   return (
     <div className={s.contenedorPrinc}>
       <NavBar />
       {/* <h2 className={s.title}>Welcome</h2> */}
+
       <div>
-        <div>
-          <SearchBar />
-          <button onClick={e => handleAllCountries(e)}>Show all</button>
-        </div>
-        <div>
-          <label>Sort by:
-            <select onChange={e => handleSortByName(e)}>
+      </div>
+      <div className={s.containerSelects}>
+        <div className={s.containerOrder}>
+          <label className={s.label}>SORT BY:
+            <select className={s.select} onChange={e => handleSortByName(e)}>
               <option hidden>Alphabet</option>
               <option value={"AZ"}>A - Z</option>
               <option value={"ZA"}>Z - A</option>
             </select>
+            <select className={s.select} onChange={e => handleSortByPopulation(e)}>
+              <option hidden>Population</option>
+              <option value={"Higher"}>Higher</option>
+              <option value={"Minor"}>Minor</option>
+            </select>
           </label>
-          <select onChange={e => handleSortByPopulation(e)}>
-            <option hidden>Population</option>
-            <option value={"Higher"}>Higher</option>
-            <option value={"Minor"}>Minor</option>
-          </select>
         </div>
         <div>
-          <label>Filter by:
-            <select onChange={e => handleFilterByContinent(e)}>
+          <label className={s.label}>FILTER BY:
+            <select className={s.select} onChange={e => handleFilterByContinent(e)}>
               <option hidden>Continent</option>
               <option value={"All"}>All</option>
               <option value={"Africa"}>Africa</option>
@@ -105,13 +110,14 @@ function Home() {
               <option value={"South America"}>South America</option>
               <option value={"Oceania"}>Oceania</option>
             </select>
-            <select onChange={e => handleFilterByActivity(e)}>
+            <select className={s.select} onChange={e => handleFilterByActivity(e)}>
               <option hidden>Tourist Activity</option>
               <option value={"All"}>All</option>
               {activities?.map((el) => (
                 <option value={el.nombre} key={el.nombre}>{el.nombre}</option>
               ))}
             </select>
+            <button className={s.buttonAll} onClick={e => handleAllCountries(e)}>Show all</button>
           </label>
         </div>
       </div>

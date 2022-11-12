@@ -1,11 +1,11 @@
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 2rem;
   flex-direction: row;
   background-color: #af6a25;
-  padding: 0.5rem;
+  padding: 0.7rem;
   border-bottom: 1px solid #e5e5e5;
   box-shadow: 0 0 10px #000;
   position: sticky;
@@ -19,11 +19,12 @@
   font-weight: bold;
   font-size: large;
   padding: 0.1em 0.5em;
-
+  filter: drop-shadow(10px 4px 8px #0a9c64);
 }
 
 .link:hover {
   box-shadow: 0 0 0.5em 0 #ffffff, 0 0 0.5em 0 #aa5d10;
   border-radius: 45%;
   color: rgb(14, 13, 13);
+  filter: none;
 }
