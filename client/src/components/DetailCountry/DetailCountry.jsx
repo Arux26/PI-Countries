@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { getCountryDetail } from '../../actions';
 import Loading from '../Loading/Loading';
 import NotFound from '../NotFound/NotFound';
-
+import s from './detail.module.css';
 
 function DetailCountry() {
 
@@ -20,35 +20,40 @@ function DetailCountry() {
   return (
 
     <div>
-      <br />
       {loading ? <Loading /> : countrie.length ? countrie.map(c => {
         return (
-          <div>
-            <div><Link to="/home"><button>← Back</button></Link></div>
-            <img src={c.imagen} alt="img not found" witdh="200px" height="200px" />
-            <h4>{c.nombre}</h4>
-            <h4>Country Code: {c.id}</h4>
-            <h4>Capital: {c.capital}</h4>
-            <h4>Continent: {c.continente}</h4>
-            <h4>Subregion: {c.subregion}</h4>
-            <h4>Area: {c.area}km²</h4>
-            <h4>Population: {c.poblacion}</h4>
-            <h4>Tourist activities: {c.activities.length ? c.activities.map(e => {
-              return (
-                <div>
-                  <ul>
-                    <li>Name: {e.nombre}</li>
-                    <li>Difficulty: {e.dificultad}</li>
-                    <li>Duration: {e.duracion}hs.</li>
-                    <li>Season: {e.temporada}</li>
+          <div className={s.containerG}>
+            <div className={s.container1}>
+              <Link to="/home"><button className={s.btn}>← BACK</button></Link>
+              <br />
+              <div className={s.detail}>
+                <h2 className={s.pais}>{c.nombre}</h2>
+                <img className={s.img} src={c.imagen} alt="img not found" witdh="200px" height="200px" />
+                <br />
+                <h3>Country Code: <span>{c.id}</span></h3>
+                <h3>Capital: <span>{c.capital}</span></h3>
+                <h3>Continent: <span>{c.continente}</span></h3>
+                <h3>Subregion: <span>{c.subregion}</span></h3>
+                <h3>Area: <span>{c.area}km²</span></h3>
+                <h3>Population: <span>{c.poblacion}</span></h3>
+              </div>
+            </div>
+            <div className={s.container2}>
+              <h4 className={s.activities}><h3 className={s.textAct}>Tourist activities: </h3>{c.activities.length ? c.activities.map(e => {
+                return (
+                  <ul className={s.ull}>
+                    <li>Name: <span>{e.nombre}</span></li>
+                    <li>Difficulty: <span>{e.dificultad}</span></li>
+                    <li>Duration: <span>{e.duracion}hs.</span></li>
+                    <li>Season: <span>{e.temporada}</span></li>
                   </ul>
-                </div>
-              )
-            }) : <span>Has no activities</span>}</h4>
+                )
+              }) : <span>Has no activities</span>}</h4>
+            </div>
           </div>
         )
       }) : <NotFound />}
-    </div>
+    </div >
   )
 }
 
