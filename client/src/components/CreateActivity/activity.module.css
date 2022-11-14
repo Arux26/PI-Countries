@@ -1,0 +1,112 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(180deg, #ffe99398, #b1621236);
+}
+
+.title {
+  margin-top: -3%;
+  font-family: system-ui;
+  color: transparent;
+  background-image: linear-gradient(180deg, #ffe993, #b16112);
+  background-clip: text;
+  -webkit-background-clip: text;
+  box-shadow: 0 0 .5em 0 #ffffff, 0 0 .5em 0 #aa5d10;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 70%;
+  animation: anim 3s;
+  text-transform: uppercase;
+}
+
+.containerArr {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: rgb(255, 255, 255);
+  column-gap: 4px;
+}
+
+.bCountry {
+  box-shadow: 0 0 .1em 0 #ffffff, 0 0 .8em 0 #dbdd55;
+  border-radius: 5%;
+}
+
+.btnX {
+  background-color: rgba(201, 72, 72, 0.87);
+  border-radius: 40%;
+  cursor: pointer;
+}
+
+.btnX:hover {
+  background-color: red;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
+  background-color: rgb(32, 30, 30);
+  border-radius: 5px;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0 0.5em 0 #d7d8d5, 0 0 0.5em 0 #aa5d10;
+  width: 80vh;
+  height: 120vh;
+}
+
+.createActivityInputs {
+  width: 200px;
+  height: 30px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.createActivitySelect {
+  width: 200px;
+  height: 30px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.inputRadio {
+  cursor: pointer;
+}
+
+.btn {
+  width: 15vh;
+  height: 3rem;
+  cursor: pointer;
+  border-radius: 5%;
+  background-color: #f18519d8;
+  margin-right: 92rem;
+  box-shadow: 0 0 0.5em 0 #f18519d8, 0 0 0.5em 0 #aa5d10;
+}
+
+.btn:hover {
+  background-color: #1eb419;
+  box-shadow: 0 0 0.5em 0 #1eb419, 0 0 0.5em 0 #aa5d10;
+}
+
+.btnCreateDisabled {
+  width: 200px;
+  height: 35px;
+  background-color: #d81919d5;
+  color: white;
+}
+
+.btnCreate {
+  width: 200px;
+  height: 35px;
+  background-color: #1eb419;
+  color: white;
+  cursor: pointer;
+}

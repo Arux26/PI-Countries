@@ -3,14 +3,15 @@
   margin-top: 5rem;
   color: transparent;
   font-size: 70px;
-  background-image: linear-gradient(180deg, #ffe993, #aa5d10);
+  background-image: linear-gradient(180deg, #ffe993, #b16112);
   background-clip: text;
   -webkit-background-clip: text;
-  box-shadow: 0 0 0.5em 0 #ffffff, 0 0 0.5em 0 #aa5d10;
+  box-shadow: 0 0 2em 0 #ffffff, 0 0 2em 0 #aa5d10;
   white-space: nowrap;
   overflow: hidden;
   width: 100%;
   animation: anim 3s;
+  text-transform: uppercase;
 }
 
 @keyframes anim {
@@ -73,4 +74,35 @@
 
 .button::after {
   opacity: 1;
+}
+
+
+
+.foot {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  padding: 1em 0;
+  background-color: black;
+  width: 100%;
+  box-shadow: 0 0 0.5em 0 #ffffff, 0 0 0.5em 0 #aa5d10;
+}
+
+.contact {
+  margin-top: -1%;
+  filter: drop-shadow(2px 4px 8px #1eb419);
+}
+
+.icons {
+  display: flex;
+  column-gap: 25px;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonA {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: large;
+  box-shadow: 0 0 0.5em 0 #1eb419, 0 0 0.5em 0 #aa5d10;
 }

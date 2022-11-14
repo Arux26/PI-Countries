@@ -14,8 +14,12 @@
   border-radius: 5px;
   color: rgb(255, 255, 255);
   box-shadow: 0 0 0.5em 0 #1eb419, 0 0 0.5em 0 #aa5d10;
-  width: 1000px;
+  width: 140vh;
+  height: 70vh;
+}
 
+.title {
+  margin-top: -2%;
 }
 
 .foot {
@@ -64,7 +68,7 @@
 }
 
 .contact {
-  margin-top: 0%;
+  margin-top: -1%;
   filter: drop-shadow(2px 4px 8px #9c690a);
 }
 

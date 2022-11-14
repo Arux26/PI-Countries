@@ -3,16 +3,18 @@ import { Link, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCountries, postActivity } from '../../actions';
+import s from './activity.module.css';
+
 
 export function validate(input) {
   let errors = {};
-  if (!input.nombre) {
-    errors.nombre = 'Write an activity';
-  } else if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g.test(input.nombre)) {  //   
-    errors.nombre = 'The activity cannot contain symbols or numbers';
+  if (!input.nombre) errors.nombre = 'Write an activity';
+  else if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g.test(input.nombre)) {  //   
+    errors.nombre = 'cannot contain symbols or numbers';
   }
   if (!input.dificultad) errors.dificultad = 'Enter a difficulty';
   if (!input.duracion) errors.duracion = 'Duration is required';
+  else if (input.duracion > 12 || input.duracion <= 0) errors.duracion = 'Select min 1hs max 12hs';
   if (!input.temporada) errors.temporada = 'Select a season';
   if (!input.countries.length) errors.countries = 'Select at least one country';
   return errors;
@@ -65,9 +67,8 @@ function CreateActivity() {
     e.preventDefault();
     setErrors(validate({ ...input, [e.target.name]: e.target.value }))
     dispatch(postActivity(input));
-    alert("Activity created successfully ✓")
     //setInput({ nombre: "", dificultad: "", duracion: "", temporada: "", countries: [] });
-    history.push("/home")
+    history.push("/home", alert("Activity created successfully ✓"))
   };
 
 
@@ -92,26 +93,28 @@ function CreateActivity() {
   }
 
   return (
-    <div>
-      <form onSubmit={e => handleSubmit(e)} /* onChange={handleCountriesChange} */>
-        <div><Link to="/home"><button>← Back</button></Link></div>
-        <h2>Create Activity</h2>
+    <div className={s.container}>
+      <form className={s.form} onSubmit={e => handleSubmit(e)} /* onChange={handleCountriesChange} */>
+
+        <div><Link to="/home"><button className={s.btn}>← Back</button></Link></div>
+        <h2 className={s.title}>Create Activity</h2>
         {/* <div>
           <span>Pais:</span>
           <input type="text" name="countries" value={input.countries} placeholder="Buscar pais..." onChange={e => handleSelect(e)} onBlur={() => { setTimeout(() => { setAutocomplete([]) }, 200) }}  />
         </div> */}
 
-        <div>
-          <select onChange={(e) => handleSelect(e)} name="countries">
-            <option hidden>Select Country</option>
-            {allCountries.map((el) => (
-              <option value={el.nombre} key={el.nombre}>{el.nombre}</option>
-            ))}
-          </select>
 
-          {errors.countries && <p className='danger'>{errors.countries}</p>}
-          <ul>{input.countries.map(el => <ol key={el} onClick={() => handleDelete(el)}><button>X</button> {el}</ol>)}</ul>
-        </div>
+        <span>Country:</span>
+        <select className={s.createActivitySelect} onChange={(e) => handleSelect(e)} name="countries">
+          <option hidden>Select Country</option>
+          {allCountries.map((el) => (
+            <option value={el.nombre} key={el.nombre}>{el.nombre}</option>
+          ))}
+        </select>
+
+        {errors.countries && <p className='danger'>{errors.countries}</p>}
+
+        <ul className={s.containerArr}>{input.countries.map(el => <b className={s.bCountry} key={el} onClick={() => handleDelete(el)}>{el}<button className={s.btnX}>X</button></b>)}</ul>
 
         {/* {
           !errors.name && !errors.difficulty && !errors.duration && !errors.season && !errors.countries ? 
@@ -121,36 +124,29 @@ function CreateActivity() {
 
         <div>
           <span>Activity:</span>
-          <input type="text" name="nombre" value={input.nombre} placeholder="Enter activity" onChange={e => handleOnChange(e)} className={errors.nombre && "danger"} onBlur={e => handleOnBlur(e)} />
+          <input className={s.createActivityInputs} type="text" name="nombre" value={input.nombre} placeholder="Enter activity" onChange={e => handleOnChange(e)} />
           {errors.nombre && <p className='danger' style={{ visibility: errors.nombre ? "visible" : "hidden" }}>{errors.nombre}</p>}
         </div>
-
-
         <div>
           <span>Difficulty:</span>
-          <select name="dificultad" id='dificultad' onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)}>
-            <option hidden>Select</option>
-            <option name="dificultad" value={"1"}>1</option>
-            <option name="dificultad" value={"2"}>2</option>
-            <option name="dificultad" value={"3"}>3</option>
-            <option name="dificultad" value={"4"}>4</option>
-            <option name="dificultad" value={"5"}>5</option>
-          </select>
+          <br />
+          <input className={s.inputRadio} type="radio" name="dificultad" value={"1"} onChange={e => handleOnChange(e)} />1/5
+          <input className={s.inputRadio} type="radio" name="dificultad" value={"2"} onChange={e => handleOnChange(e)} />2/5
+          <input className={s.inputRadio} type="radio" name="dificultad" value={"3"} onChange={e => handleOnChange(e)} />3/5
+          <input className={s.inputRadio} type="radio" name="dificultad" value={"4"} onChange={e => handleOnChange(e)} />4/5
+          <input className={s.inputRadio} type="radio" name="dificultad" value={"5"} onChange={e => handleOnChange(e)} />5/5
           {errors.dificultad && <p className='danger' style={{ visibility: errors.dificultad ? "visible" : "hidden" }}>{errors.dificultad}</p>}
         </div>
-
+        <br />
         <div>
           <span>Duration:</span>
-          <input type="radio" name="duracion" value={1} id="1hs" onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)} /> 1hs.
-          <input type="radio" name="duracion" value={2} id="2hs" onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)} /> 2hs.
-          <input type="radio" name="duracion" value={3} id="3hs" onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)} /> 3hs.
-          <input type="radio" name="duracion" value={4} id="Más de 3hs" onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)} /> 4hs.
+          <input className={s.createActivityInputs} type="number" name="duracion" value={input.duracion} placeholder={"Enter duration (hs)"} onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)} />
           {errors.duracion && <p className='danger' style={{ visibility: errors.duracion ? "visible" : "hidden" }}>{errors.duracion}</p>}
         </div>
 
         <div>
           <span>Season:</span>
-          <select name="temporada" onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)}>
+          <select className={s.createActivitySelect} name="temporada" onChange={e => handleOnChange(e)} onBlur={e => handleOnBlur(e)}>
             <option hidden>Select</option>
             <option name="temporada" value={"Verano"}>Verano</option>
             <option name="temporada" value={"Otoño"}>Otoño</option>
@@ -159,13 +155,12 @@ function CreateActivity() {
           </select>
           {errors.temporada && <p className='danger' style={{ visibility: errors.temporada ? "visible" : "hidden" }}>{errors.temporada}</p>}
         </div>
-
         <button
           type="submit"
-          disabled={!input.countries.length || errors.nombre || !input.nombre || !input.dificultad || input.dificultad === "Seleccionar" || !input.duracion || !input.temporada || input.temporada === "Seleccionar"}>
+          disabled={!input.countries.length || errors.nombre || !input.nombre || !input.dificultad || !input.duracion || !input.temporada}
+          className={!input.countries.length || errors.nombre || !input.nombre || !input.dificultad || !input.duracion || !input.temporada ? s.btnCreateDisabled : s.btnCreate}>
           Create
         </button>
-
       </form>
     </div>
   )

@@ -5,9 +5,9 @@ import s from './about.module.css'
 function About() {
   return (
     <div className={s.containerG}>
+      <Link to="/home"><button className={s.btn}>← Back</button></Link>
       <div className={s.container}>
-        <Link to="/home"><button className={s.btn}>← Back</button></Link>
-        <h1>Hello, thanks for viewing my project!😊</h1>
+        <h1 className={s.title}>Hello, thanks for viewing my project!😊</h1>
         <span className={s.spanDetail}>My name is Aníbal Ariel Trangoni and this my Individual Project for Henry's Web Development Course.
           <br />
           In this project i develop a single page application integrating several technologies that I learned in the course.
