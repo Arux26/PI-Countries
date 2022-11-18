@@ -158,7 +158,7 @@ function CreateActivity() {
         <button
           type="submit"
           disabled={!input.countries.length || errors.nombre || !input.nombre || !input.dificultad || !input.duracion || !input.temporada}
-          className={!input.countries.length || errors.nombre || !input.nombre || !input.dificultad || !input.duracion || !input.temporada ? s.btnCreateDisabled : s.btnCreate}>
+          className={!input.countries.length || errors.nombre || !input.nombre || !input.dificultad || !input.duracion || errors.duracion || !input.temporada ? s.btnCreateDisabled : s.btnCreate}>
           Create
         </button>
       </form>

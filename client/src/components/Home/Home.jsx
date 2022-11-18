@@ -19,15 +19,15 @@ function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [countriesPerPage] = useState(10);
 
-  let lastCountry = currentPage * countriesPerPage; //10
-  let firstIndex = lastCountry - countriesPerPage; // 0
+  let firstIndex;
+  let lastCountry;
 
   if (currentPage === 1) {
     firstIndex = 0;
     lastCountry = 9;
   } else {
-    firstIndex--;
-    lastCountry--;
+    lastCountry = (currentPage * countriesPerPage) - 1;
+    firstIndex = lastCountry - countriesPerPage;
   }
   const currentCountries = countries.slice(firstIndex, lastCountry);
 
@@ -37,10 +37,10 @@ function Home() {
   }, [dispatch]);
 
 
-  const handleAllCountries = (e) => {
-    e.preventDefault();
-    dispatch(getCountries());
-  }
+  /*  const handleAllCountries = (e) => {
+     e.preventDefault();
+     dispatch(getCountries());
+   } */
 
   const handleSortByName = (e) => {
     e.preventDefault();
@@ -68,12 +68,12 @@ function Home() {
     setCurrentPage(1);
   }
 
-  const scrollTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
-  }
+  /*  const scrollTop = () => {
+     window.scrollTo({
+       top: 0,
+       behavior: "smooth",
+     })
+   } */
 
   return (
     <div className={s.contenedorPrinc}>
@@ -117,7 +117,7 @@ function Home() {
                 <option value={el.nombre} key={el.nombre}>{el.nombre}</option>
               ))}
             </select>
-            <button className={s.buttonAll} onClick={e => handleAllCountries(e)}>Show all</button>
+            {/* <button className={s.buttonAll} onClick={e => handleAllCountries(e)}>Show all</button> */}
           </label>
         </div>
       </div>

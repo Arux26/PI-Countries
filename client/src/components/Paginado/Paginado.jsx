@@ -6,14 +6,14 @@ function Paginado({ countriesPerPage, allCountries, setCurrentPage }) {
   const [pages, setPages] = useState([]);
 
   useEffect(() => {
-    let paginas = [1];
+    let paginas = [];
     let restCountries = allCountries - 9; // resto 9 x la primer pag ---> 241
     if (restCountries > 0)
-      for (let i = 2; i <= Math.ceil(restCountries / countriesPerPage) + 1; i++) {
+      for (let i = 1; i <= Math.ceil(restCountries / countriesPerPage) + 1; i++) {
         paginas.push(i);
       }
     setPages(paginas);
-  }, [allCountries]);
+  }, [allCountries, countriesPerPage, pages]);
 
   /*   useEffect(() => {
       if (currentPage > pages.length && pages.length !== 0)

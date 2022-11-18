@@ -33,7 +33,7 @@ function SearchBar() {
   return (
     <div className={s.searchBar}>
       <form onSubmit={handleSubmit} className={s.searchBar}>
-        <input className={s.input} type="text" value={input} placeholder="Enter country..." onChange={e => handleOnChange(e)} />
+        <input className={s.input} type="text" value={input} placeholder="Enter country..." onChange={e => handleOnChange(e)} autoComplete="on" />
         <input className={s.btn} type="submit" value='Search' />
       </form>
     </div>
