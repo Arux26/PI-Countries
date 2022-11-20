@@ -1,4 +1,4 @@
-import { GET_COUNTRIES, ORDER_BY_NAME, GET_COUNTRIE_BY_NAME, POST_ACTIVITY, ORDER_BY_POPULATION, FILTER_BY_CONTINENT, GET_ACTIVITIES, GET_COUNTRY_DETAIL, FILTER_BY_ACTIVITY, LOADING } from "../actionTypes";
+import { GET_COUNTRIES, ORDER_BY_NAME, GET_COUNTRIE_BY_NAME, POST_ACTIVITY, ORDER_BY_POPULATION, FILTER_BY_CONTINENT, GET_ACTIVITIES, GET_COUNTRY_DETAIL, FILTER_BY_ACTIVITY, RESET_DETAIL, LOADING } from "../actionTypes";
 
 const initialState = {
   countries: [],
@@ -82,11 +82,11 @@ function rootReducer(state = initialState, action) {
       }
     case FILTER_BY_ACTIVITY:
       let allCountries = [...state.allCountries];
-      let All = action.payload === "All" ? allCountries.filter(c => c.activities.length !== 0)
+      let filter = action.payload === "All" ? allCountries.filter(c => c.activities.length !== 0)
         : allCountries.filter(c => c.activities.map(a => a.nombre).includes(action.payload))
       return {
         ...state,
-        countries: All
+        countries: filter
       }
     case GET_ACTIVITIES:
       return {
@@ -103,6 +103,11 @@ function rootReducer(state = initialState, action) {
         loading: false,
         countryDetail: action.payload
       }
+    case RESET_DETAIL:
+      return {
+        ...state,
+        countryDetail: [],
+      };
     default: return { ...state }
   }
 }

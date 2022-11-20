@@ -16,6 +16,7 @@ code {
 p.danger {
   color: red;
   font-size: 15px;
+  font-weight: bold;
 }
 
 input.danger {

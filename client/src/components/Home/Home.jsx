@@ -14,7 +14,7 @@ function Home() {
   const dispatch = useDispatch();
   const countries = useSelector(state => state.countries);
   const activities = useSelector(state => state.activities);
-  const [orden, setOrden] = useState('');
+  const [, setOrden] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
   const [countriesPerPage] = useState(10);
@@ -37,36 +37,34 @@ function Home() {
   }, [dispatch]);
 
 
-  /*  const handleAllCountries = (e) => {
-     e.preventDefault();
-     dispatch(getCountries());
-   } */
-
   const handleSortByName = (e) => {
-    e.preventDefault();
     dispatch(orderByName(e.target.value));
     setCurrentPage(1);
     setOrden(e.target.value);
   }
 
   const handleSortByPopulation = (e) => {
-    e.preventDefault();
     dispatch(orderByPopulation(e.target.value));
     setCurrentPage(1);
     setOrden(e.target.value);
   }
 
   const handleFilterByContinent = (e) => {
-    e.preventDefault();
     e.target.value === "All" ? dispatch(getCountries()) : dispatch(filterByContinent(e.target.value));
     setCurrentPage(1);
   }
 
   const handleFilterByActivity = (e) => {
-    e.preventDefault();
     dispatch(filterByActivity(e.target.value));
     setCurrentPage(1);
   }
+
+  /* function handleFilter(e) {
+    dispatch(handleFilterByContinent(e.target.value));
+    dispatch(handleFilterByActivity(e.target.value));
+    setOrden(`Ordenado ${e.target.value}`);
+    setCurrentPage(1);
+  } */
 
   /*  const scrollTop = () => {
      window.scrollTo({
@@ -77,20 +75,18 @@ function Home() {
 
   return (
     <div className={s.contenedorPrinc}>
-      <NavBar />
-      {/* <h2 className={s.title}>Welcome</h2> */}
-
+      <NavBar setCurrentPage={setCurrentPage} />
       <div>
       </div>
       <div className={s.containerSelects}>
         <div className={s.containerOrder}>
           <label className={s.label}>SORT BY:
-            <select className={s.select} onChange={e => handleSortByName(e)}>
+            <select id='Alphabet' className={s.select} onChange={e => handleSortByName(e)}>
               <option hidden>Alphabet</option>
               <option value={"AZ"}>A - Z</option>
               <option value={"ZA"}>Z - A</option>
             </select>
-            <select className={s.select} onChange={e => handleSortByPopulation(e)}>
+            <select id='Population' className={s.select} onChange={e => handleSortByPopulation(e)}>
               <option hidden>Population</option>
               <option value={"Higher"}>Higher</option>
               <option value={"Minor"}>Minor</option>
@@ -99,7 +95,7 @@ function Home() {
         </div>
         <div>
           <label className={s.label}>FILTER BY:
-            <select className={s.select} onChange={e => handleFilterByContinent(e)}>
+            <select id='Continent' className={s.select} onChange={e => handleFilterByContinent(e)}>
               <option hidden>Continent</option>
               <option value={"All"}>All</option>
               <option value={"Africa"}>Africa</option>
@@ -110,18 +106,17 @@ function Home() {
               <option value={"South America"}>South America</option>
               <option value={"Oceania"}>Oceania</option>
             </select>
-            <select className={s.select} onChange={e => handleFilterByActivity(e)}>
+            <select id='Tourist Activity' className={s.select} onChange={e => handleFilterByActivity(e)}>
               <option hidden>Tourist Activity</option>
               <option value={"All"}>All</option>
               {activities?.map((el) => (
                 <option value={el.nombre} key={el.nombre}>{el.nombre}</option>
               ))}
             </select>
-            {/* <button className={s.buttonAll} onClick={e => handleAllCountries(e)}>Show all</button> */}
           </label>
         </div>
       </div>
-      <Paginado countriesPerPage={countriesPerPage} allCountries={countries.length} setCurrentPage={setCurrentPage} />
+      <Paginado countriesPerPage={countriesPerPage} allCountries={countries.length} currentPage={currentPage} setCurrentPage={setCurrentPage} />
       <div className={s.cardContainer}>
         {
           currentCountries.length ? currentCountries.map(e => {
@@ -140,6 +135,7 @@ function Home() {
           }) : <Loading />
         }
       </div>
+      {/* <button onClick={() => window.scrollTo(0, 0)}>GO UP</button> */}
     </div>
   )
 };

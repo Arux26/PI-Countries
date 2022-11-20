@@ -4,30 +4,29 @@ import { getCountrieByName } from '../../actions';
 //import { useHistory } from 'react-router-dom';
 import s from './searchBar.module.css';
 
-function SearchBar() {
+function SearchBar({ setCurrentPage }) {
 
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
-  const countries = useSelector(state => state.countries);
-
+  const allCountries = useSelector(state => state.allCountries);
 
 
   const handleOnChange = (e) => {
-    e.preventDefault();
     setInput(e.target.value);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const country = countries.filter(e => e.nombre.toLowerCase().includes(input.toLowerCase()))
+    const country = allCountries.filter(e => e.nombre.toLowerCase().includes(input.toLowerCase()))
+    if (!input) return window.confirm("You must enter a country");
     if (!country.length) {
       alert("There are no countries with the entered text")
       setInput('')
     } else {
+      setCurrentPage(1)
       dispatch(getCountrieByName(input))
       setInput('')
     }
-    if (!input) return window.confirm("You must enter a country");
   }
 
   return (

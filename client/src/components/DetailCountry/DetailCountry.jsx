@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from 'react-router-dom';
-import { getCountryDetail } from '../../actions';
+import { getCountryDetail, resetDetail } from '../../actions';
 import Loading from '../Loading/Loading';
 import NotFound from '../NotFound/NotFound';
 import s from './detail.module.css';
@@ -15,6 +15,9 @@ function DetailCountry() {
 
   useEffect(() => {
     dispatch(getCountryDetail(id));
+    return function cleanup() {
+      dispatch(resetDetail());
+    };
   }, [dispatch, id])
 
   return (
@@ -43,7 +46,7 @@ function DetailCountry() {
                 return (
                   <ul className={s.ull}>
                     <li>Name: <span>{e.nombre}</span></li>
-                    <li>Difficulty: <span>{e.dificultad}</span></li>
+                    <li>Difficulty: <span>{e.dificultad}/5</span></li>
                     <li>Duration: <span>{e.duracion}hs.</span></li>
                     <li>Season: <span>{e.temporada}</span></li>
                   </ul>

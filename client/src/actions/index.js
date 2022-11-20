@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_COUNTRIES, ORDER_BY_NAME, GET_COUNTRIE_BY_NAME, POST_ACTIVITY, ORDER_BY_POPULATION, FILTER_BY_CONTINENT, GET_ACTIVITIES, GET_COUNTRY_DETAIL, FILTER_BY_ACTIVITY, LOADING } from "../actionTypes";
+import { GET_COUNTRIES, ORDER_BY_NAME, GET_COUNTRIE_BY_NAME, POST_ACTIVITY, ORDER_BY_POPULATION, FILTER_BY_CONTINENT, GET_ACTIVITIES, GET_COUNTRY_DETAIL, FILTER_BY_ACTIVITY, RESET_DETAIL, LOADING } from "../actionTypes";
 
 export const loading = () => {
   return {
@@ -85,6 +85,12 @@ export const getCountryDetail = (id) => dispatch => {
   } catch (e) {
     console.log(e)
   }
+};
+
+export const resetDetail = function () {
+  return {
+    type: RESET_DETAIL,
+  };
 };
 
 /* export const postActivity = (payload) => dispatch => {

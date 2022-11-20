@@ -19,7 +19,7 @@
 .btn {
   width: 70px;
   height: 30px;
-  background-color: #ad4702af;
+  background-color: #0db80d8a;
   border: 1px solid #000;
   border-radius: 0 50px 50px 0;
   box-shadow: 0 0 10px rgb(112, 216, 147);
@@ -33,7 +33,7 @@
 
 
 .btn:hover {
-  background-color: #0a9c64;
+  background-color: #0db80d;
   color: #fff;
   text-shadow: 0 0 5px rgb(61, 60, 60);
 }

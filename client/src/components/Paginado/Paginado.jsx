@@ -2,29 +2,43 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import s from './paginado.module.css';
 
-function Paginado({ countriesPerPage, allCountries, setCurrentPage }) {
+function Paginado({ countriesPerPage, allCountries, currentPage, setCurrentPage }) {
+
   const [pages, setPages] = useState([]);
 
-  useEffect(() => {
-    let paginas = [];
-    let restCountries = allCountries - 9; // resto 9 x la primer pag ---> 241
-    if (restCountries > 0)
-      for (let i = 1; i <= Math.ceil(restCountries / countriesPerPage) + 1; i++) {
-        paginas.push(i);
-      }
-    setPages(paginas);
-  }, [allCountries, countriesPerPage, pages]);
+  function handleNext() {
+    if (currentPage <= pages.length - 1) setCurrentPage(currentPage + 1)
+  };
 
-  /*   useEffect(() => {
-      if (currentPage > pages.length && pages.length !== 0)
-        setCurrentPage(pages.at(-1));
-    }, [currentPage, pages, setCurrentPage]); */
+  function handlePrev() {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  useEffect(() => {
+    let paginas = [1];
+    let restCountries = allCountries - 9; // resto 9 x la primer pag ---> 241
+    for (let i = 2; i <= Math.ceil(restCountries / countriesPerPage) + 1; i++) {
+      paginas.push(i);
+    }
+    setPages(paginas);
+  }, [allCountries, countriesPerPage]);
+
+
+
+  const handleFocus = (e) => {
+    if (e.target.value) e.target.value = "act"
+  }
 
   return (
     <div className={s.cardContainer}>
+      <button disabled={currentPage <= 1} className={currentPage <= 1 ? s.prevMax : s.prev} onClick={handlePrev}>←prev</button>
       {pages.map((page) => (
-        <button className={s.button} key={page} onClick={() => setCurrentPage(page)}>{page}</button>
+        <input type='submit' value={page} className={s.button} key={page} onClick={() => setCurrentPage(page)} onFocus={handleFocus} />
       ))}
+      <button
+        disabled={currentPage >= pages.length}
+        className={currentPage >= pages.length ? s.nextMax : s.next}
+        onClick={handleNext}>next→</button>
     </div>
   );
 }
