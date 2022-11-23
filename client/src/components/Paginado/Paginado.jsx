@@ -23,22 +23,17 @@ function Paginado({ countriesPerPage, allCountries, currentPage, setCurrentPage 
     setPages(paginas);
   }, [allCountries, countriesPerPage]);
 
-
-
-  const handleFocus = (e) => {
-    if (e.target.value) e.target.value = "act"
+  /* const handleFocus = (e) => {
+    if (e.target.value) e.target.value = "page"
   }
-
+ */
   return (
     <div className={s.cardContainer}>
       <button disabled={currentPage <= 1} className={currentPage <= 1 ? s.prevMax : s.prev} onClick={handlePrev}>←prev</button>
       {pages.map((page) => (
-        <input type='submit' value={page} className={s.button} key={page} onClick={() => setCurrentPage(page)} onFocus={handleFocus} />
+        <input type='submit' value={page} className={currentPage === page ? s.button2 : s.button} key={page} onClick={() => setCurrentPage(page)} />
       ))}
-      <button
-        disabled={currentPage >= pages.length}
-        className={currentPage >= pages.length ? s.nextMax : s.next}
-        onClick={handleNext}>next→</button>
+      <button disabled={currentPage >= pages.length} className={currentPage >= pages.length ? s.nextMax : s.next} onClick={handleNext}>next→</button>
     </div>
   );
 }

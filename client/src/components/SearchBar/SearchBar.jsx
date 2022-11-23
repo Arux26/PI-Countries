@@ -18,7 +18,7 @@ function SearchBar({ setCurrentPage }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const country = allCountries.filter(e => e.nombre.toLowerCase().includes(input.toLowerCase()))
+    const country = allCountries.filter(e => e.nombre.toLowerCase().includes(input.toLowerCase())) //---> []
     if (!input) return window.confirm("You must enter a country");
     if (!country.length) {
       history.push("/notFound")

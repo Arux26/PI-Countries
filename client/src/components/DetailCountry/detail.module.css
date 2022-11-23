@@ -36,7 +36,10 @@
 
 .img {
   border-radius: 5px;
-  box-shadow: 0 0 0.5em 0 #ffffff, 0 0 0.5em 0 #aa5d10;
+  /* box-shadow: 0 0 0.5em 0 #ffffff, 0 0 0.5em 0 #aa5d10; */
+  width: 350px;
+  height: 250px;
+  margin: 20px;
 }
 
 

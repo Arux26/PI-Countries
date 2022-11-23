@@ -71,16 +71,17 @@ function CreateActivity() {
 
 
   function handleSelect(e) {
-    setInput({
-      ...input,
-      countries: [...input.countries, e.target.value],
-    });
-
-    setErrors(validate({
-      ...input,
-      [e.target.name]: e.target.value
-    }));
-  }
+    if (!input.countries.includes(e.target.value)) {
+      setInput({
+        ...input,
+        countries: [...input.countries, e.target.value],
+      });
+      setErrors(validate({
+        ...input,
+        [e.target.name]: e.target.value
+      }));
+    } else return null;
+  };
 
   function handleDelete(el) {
     setInput({
