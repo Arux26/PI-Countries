@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
   if (!nombre || !dificultad || !duracion || !temporada) return res.send("Faltan enviar datos");
   try {
     const [activity] = await Activity.findOrCreate({
-      where: { nombre: { [Op.iLike]: `%${nombre}%` } },
+      where: { nombre: nombre },
       defaults: {
         nombre,
         dificultad,

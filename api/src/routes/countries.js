@@ -5,6 +5,7 @@ const { Country, Activity } = require("../db");
 
 const router = Router();
 
+
 getAllCountries = async () => {
   const getCountries = await axios.get("https://restcountries.com/v3/all");
   const countries = await getCountries.data.map(p => {
@@ -107,8 +108,6 @@ router.get("/continent/:continent", async (req, res) => {
   if (!countriesByContinent) return res.status(404).send(`El continente ${continent} no corresponde a un continente existente`);
   res.status(200).json(countriesByContinent);
 });
-
-
 
 
 module.exports = router 
