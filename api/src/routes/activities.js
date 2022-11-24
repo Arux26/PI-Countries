@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
   if (!nombre || !dificultad || !duracion || !temporada) return res.send("Faltan enviar datos");
   try {
     const [activity] = await Activity.findOrCreate({
-      where: { nombre: nombre },
+      where: { [Op.and]: [{ nombre: { [Op.iLike]: nombre } }, { dificultad }, { duracion }, { temporada }] },
       defaults: {
         nombre,
         dificultad,
@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
         temporada,
       }
     });
-    for (const nombre of countries) {
+    for (const nombre of countries) {  //[Argentina, Brazil, Canada]
       const country = await Country.findOne({
         where: { nombre: nombre }
       })
@@ -39,5 +39,7 @@ router.get("/", async (req, res) => {
     console.log(e)
   }
 })
+
+
 
 module.exports = router

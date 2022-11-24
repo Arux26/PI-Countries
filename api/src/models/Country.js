@@ -27,6 +27,7 @@ module.exports = (sequelize) => {
     },
     subregion: {
       type: DataTypes.STRING,
+      defaultValue: "Not Found"
     },
     area: {
       type: DataTypes.INTEGER

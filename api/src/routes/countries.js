@@ -38,6 +38,7 @@ dbCountries = async () => {
   return countriesOnDb
 };
 
+
 router.get("/", async (req, res) => {
   const { name } = req.query;
   try {
@@ -80,7 +81,7 @@ router.get("/:id", async (req, res) => {
   try {
     const country = await Country.findAll({
       where: {
-        id: { [Op.iLike]: `%${id}%` }
+        id: { [Op.iLike]: id }
       },
       include: {
         model: Activity,
@@ -108,6 +109,9 @@ router.get("/continent/:continent", async (req, res) => {
   if (!countriesByContinent) return res.status(404).send(`El continente ${continent} no corresponde a un continente existente`);
   res.status(200).json(countriesByContinent);
 });
+
+
+
 
 
 module.exports = router 
