@@ -18,7 +18,7 @@ function Home() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [countriesPerPage] = useState(10);
-
+  //let countriesPerPage = 10
   let firstIndex;
   let lastCountry;
 

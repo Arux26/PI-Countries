@@ -40,15 +40,6 @@ function CreateActivity() {
   });
 
   const [errors, setErrors] = useState({});
-  //const [autoComplete, setAutocomplete] = useState([])
-
-
-  /* const handleCountriesChange = (e) => {
-    let handle = countries.filter((c) =>
-      c.nombre.toLowerCase().includes(e.target.name.toLowerCase())
-    );
-    setAutocomplete(handle.slice(0, 4));
-  }; */
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -92,15 +83,10 @@ function CreateActivity() {
 
   return (
     <div className={s.container}>
-      <form className={s.form} onSubmit={e => handleSubmit(e)} /* onChange={handleCountriesChange} */>
+      <form className={s.form} onSubmit={e => handleSubmit(e)}>
 
         <div><Link to="/home"><button className={s.btn}>← Back</button></Link></div>
         <h2 className={s.title}>Create Activity</h2>
-        {/* <div>
-            <span>Pais:</span>
-            <input type="text" name="countries" value={input.countries} placeholder="Buscar pais..." onChange={e => handleSelect(e)} onBlur={() => { setTimeout(() => { setAutocomplete([]) }, 200) }}  />
-          </div> */}
-
 
         <span>Country:</span>
         <select className={s.createActivitySelect} onChange={(e) => handleSelect(e)} name="countries">

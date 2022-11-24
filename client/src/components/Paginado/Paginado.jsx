@@ -16,7 +16,7 @@ function Paginado({ countriesPerPage, allCountries, currentPage, setCurrentPage 
 
   useEffect(() => {
     let paginas = [1];
-    let restCountries = allCountries - 9; // resto 9 x la primer pag ---> 241
+    let restCountries = allCountries - 9; // resto 9 x la primer pag ---> 241 
     for (let i = 2; i <= Math.ceil(restCountries / countriesPerPage) + 1; i++) {
       paginas.push(i);
     }
