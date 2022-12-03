@@ -6,7 +6,7 @@ import s from './searchBar.module.css';
 
 function SearchBar({ setCurrentPage }) {
 
-  const history = useHistory();
+  const history = useHistory()
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
   const allCountries = useSelector(state => state.allCountries);
